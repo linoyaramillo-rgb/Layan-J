@@ -263,32 +263,73 @@ footer {
 <footer>
   © 2026 Layan.J · Official Website · AI character
 </footer>
-
 <script>
 const form = document.getElementById('chatForm');
 const input = document.getElementById('userMessage');
 const messages = document.getElementById('messages');
 
-form.addEventListener('submit', function(event) {
+const API_URL = 'https://layan-j-chat.linoyaramillo.workers.dev/';
+
+form.addEventListener('submit', async function(event) {
   event.preventDefault();
+
   const text = input.value.trim();
   if (!text) return;
 
-  const message = document.createElement('div');
-  message.className = 'message';
-  message.textContent = text;
-  messages.appendChild(message);
+  const sendButton = form.querySelector('button');
+  sendButton.disabled = true;
+  sendButton.textContent = '...';
+
+  const userMessage = document.createElement('div');
+  userMessage.className = 'message';
+  userMessage.textContent = text;
+  messages.appendChild(userMessage);
+
+  input.value = '';
 
   const reply = document.createElement('div');
   reply.className = 'message';
-  reply.textContent =
-    'Your message has reached the demo. The AI connection will be added in a later step.';
+  reply.textContent = 'Layan is thinking...';
   messages.appendChild(reply);
 
-  input.value = '';
-  messages.scrollTop = messages.scrollHeight;
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: text
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.error || 'The AI service returned an error.'
+      );
+    }
+
+    const answer =
+      data.reply || data.response || data.text || data.answer;
+
+    if (!answer) {
+      throw new Error('The AI service returned no reply.');
+    }
+
+    reply.textContent = answer;
+
+  } catch (error) {
+    console.error('Chat error:', error);
+    reply.textContent =
+      'Sorry, darling. The connection failed. Please try again.';
+  } finally {
+    sendButton.disabled = false;
+    sendButton.textContent = 'Send';
+    messages.scrollTop = messages.scrollHeight;
+  }
 });
 </script>
-
 </body>
 </html>
