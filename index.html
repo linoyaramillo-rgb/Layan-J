@@ -1,296 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Layan.J | Official</title>
-
-<style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: #100b0e;
-  color: #f8edf1;
-  font-family: Arial, sans-serif;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 22px 7%;
-  border-bottom: 1px solid #39212b;
-}
-
-.logo {
-  font-size: 27px;
-  font-weight: bold;
-  letter-spacing: 3px;
-}
-
-.logo span { color: #d79aaf; }
-
-nav a {
-  color: #e6d5dc;
-  text-decoration: none;
-  margin-left: 20px;
-  font-size: 14px;
-}
-
-.hero {
-  min-height: 490px;
-  display: flex;
-  align-items: center;
-  padding: 65px 9%;
-  background:
-    radial-gradient(ellipse at 80% 40%, #67253d 0%, transparent 45%),
-    linear-gradient(120deg, #100b0e, #28121d);
-}
-
-.hero-content { max-width: 580px; }
-
-.eyebrow {
-  color: #e7a8bd;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  font-size: 12px;
-}
-
-h1 {
-  font-size: clamp(48px, 9vw, 88px);
-  margin: 18px 0;
-  letter-spacing: -3px;
-}
-
-h1 span { color: #d79aaf; }
-
-.hero p {
-  color: #d0bdc5;
-  line-height: 1.8;
-  max-width: 440px;
-}
-
-.button {
-  display: inline-block;
-  background: #a83e61;
-  color: white;
-  padding: 14px 25px;
-  border-radius: 4px;
-  text-decoration: none;
-  margin-top: 18px;
-  border: none;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-.button:hover { background: #c65378; }
-
-section { padding: 55px 7%; }
-
-.section-title {
-  font-size: 28px;
-  margin-bottom: 8px;
-}
-
-.muted { color: #bda9b2; line-height: 1.7; }
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 28px;
-}
-
-.photo {
-  min-height: 190px;
-  border: 1px solid #4b2937;
-  border-radius: 8px;
-  background: linear-gradient(145deg, #492033, #1c1117);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: #e3b5c6;
-  padding: 18px;
-}
-
-.chat-section {
-  background: #1a1016;
-  text-align: center;
-}
-
-.chat-box {
-  max-width: 650px;
-  margin: 28px auto 0;
-  background: #100b0e;
-  border: 1px solid #543044;
-  border-radius: 10px;
-  overflow: hidden;
-  text-align: left;
-}
-
-.chat-head {
-  padding: 18px;
-  border-bottom: 1px solid #39212b;
-  display: flex;
-  justify-content: space-between;
-}
-
-.status { color: #d79aaf; font-size: 12px; }
-
-.chat-body {
-  padding: 22px;
-  min-height: 140px;
-}
-
-.message {
-  background: #35202c;
-  padding: 13px 16px;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  line-height: 1.6;
-}
-
-.chat-input {
-  display: flex;
-  gap: 8px;
-  padding: 14px;
-  border-top: 1px solid #39212b;
-}
-
-.chat-input input {
-  flex: 1;
-  min-width: 0;
-  background: #21141c;
-  color: white;
-  border: 1px solid #543044;
-  padding: 13px;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.chat-input button {
-  background: #a83e61;
-  color: white;
-  border: none;
-  padding: 12px 17px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-footer {
-  text-align: center;
-  padding: 28px;
-  color: #a9949e;
-  font-size: 12px;
-  border-top: 1px solid #39212b;
-}
-
-@media (max-width: 600px) {
-  header { padding: 18px 5%; }
-  nav a { margin-left: 8px; font-size: 12px; }
-  .gallery { grid-template-columns: 1fr; }
-  .hero { padding: 55px 7%; }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="logo">Layan<span>.J</span></div>
-  <nav>
-    <a href="#about">About</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#chat">Chat</a>
-  </nav>
-</header>
-
-<main>
-  <section class="hero" id="about">
-    <div class="hero-content">
-      <div class="eyebrow">The official world of</div>
-      <h1>Layan<span>.J</span></h1>
-      <p>
-        A little mystery, a little romance, and a lot of personality.
-        Welcome to my world. Stay curious, darling.
-      </p>
-      <a class="button" href="#chat">Meet Layan ♥</a>
-    </div>
-  </section>
-
-  <section id="gallery">
-    <h2 class="section-title">The Gallery</h2>
-    <p class="muted">A glimpse into the world of Layan.J.</p>
-
-    <div class="gallery">
-      <div class="photo">Your portrait goes here</div>
-      <div class="photo">Photoshoots &amp; moments</div>
-      <div class="photo">Videos &amp; stories</div>
-    </div>
-  </section>
-
-  <section class="chat-section" id="chat">
-    <h2 class="section-title">Chat with Layan ♥</h2>
-    <p class="muted">
-      Romance, playful conversations, and a little mischief.
-    </p>
-
-    <div class="chat-box">
-      <div class="chat-head">
-        <strong>Layan.J</strong>
-        <span class="status">AI personality · Demo</span>
-      </div>
-
-      <div class="chat-body" id="messages" aria-live="polite">
-        <div class="message">
-          Hey, darling. ♥ Welcome to my little corner of the world.
-          What would you like to talk about?
-        </div>
-      </div>
-
-      <form class="chat-input" id="chatForm">
-        <input id="userMessage" placeholder="Write something, darling..."
-               aria-label="Your message" required>
-        <button type="submit">Send</button>
-      </form>
-    </div>
-    <p class="muted">This is a preview. AI replies will be connected later.</p>
-  </section>
-</main>
-
-<footer>
-  © 2026 Layan.J · Official Website · AI character
-</footer>
 <script>
+const API_URL = 'https://layan-j-chat.linoyaramillo.workers.dev/';
+
 const form = document.getElementById('chatForm');
 const input = document.getElementById('userMessage');
 const messages = document.getElementById('messages');
 
-const API_URL = 'https://layan-j-chat.linoyaramillo.workers.dev/';
+const history = [];
+
+function addMessage(text, className = 'message') {
+  const element = document.createElement('div');
+  element.className = className;
+  element.textContent = text;
+  messages.appendChild(element);
+  messages.scrollTop = messages.scrollHeight;
+  return element;
+}
 
 form.addEventListener('submit', async function(event) {
   event.preventDefault();
 
   const text = input.value.trim();
+
   if (!text) return;
 
-  const sendButton = form.querySelector('button');
-  sendButton.disabled = true;
-  sendButton.textContent = '...';
-
-  const userMessage = document.createElement('div');
-  userMessage.className = 'message';
-  userMessage.textContent = text;
-  messages.appendChild(userMessage);
-
+  addMessage(text);
   input.value = '';
+  input.disabled = true;
 
-  const reply = document.createElement('div');
-  reply.className = 'message';
-  reply.textContent = 'Layan is thinking...';
-  messages.appendChild(reply);
+  const sendButton = form.querySelector('button');
+  if (sendButton) sendButton.disabled = true;
+
+  const loading = addMessage('One moment, darling…', 'message');
 
   try {
     const response = await fetch(API_URL, {
@@ -299,37 +39,54 @@ form.addEventListener('submit', async function(event) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        message: text
+        message: text,
+        history: history
       })
     });
 
     const data = await response.json();
 
+    loading.remove();
+
     if (!response.ok) {
-      throw new Error(
-        data.error || 'The AI service returned an error.'
+      const details = data.details || data.error || 'Unknown error';
+      addMessage(
+        'Sorry, darling. The connection failed. ' +
+        'Details: ' + details
       );
+      return;
     }
 
-    const answer =
-      data.reply || data.response || data.text || data.answer;
-
-    if (!answer) {
-      throw new Error('The AI service returned no reply.');
+    if (!data.reply) {
+      addMessage('Sorry, darling. The AI returned an empty reply.');
+      return;
     }
 
-    reply.textContent = answer;
+    addMessage(data.reply);
+
+    history.push(
+      { role: 'user', text: text },
+      { role: 'model', text: data.reply }
+    );
+
+    if (history.length > 12) {
+      history.splice(0, history.length - 12);
+    }
 
   } catch (error) {
-    console.error('Chat error:', error);
-    reply.textContent =
-      'Sorry, darling. The connection failed. Please try again.';
+    loading.remove();
+
+    addMessage(
+      'Connection error: ' +
+      (error.message || 'Unable to reach the AI service.')
+    );
+
   } finally {
-    sendButton.disabled = false;
-    sendButton.textContent = 'Send';
-    messages.scrollTop = messages.scrollHeight;
+    input.disabled = false;
+
+    if (sendButton) sendButton.disabled = false;
+
+    input.focus();
   }
 });
 </script>
-</body>
-</html>
