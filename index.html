@@ -1,51 +1,220 @@
--- Public interactions for the Layan.J photo gallery.
--- Run this once in Supabase SQL Editor after reviewing the website update.
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#210d18">
+<title>Layan.J — A little mystery</title>
+<meta name="description" content="Meet Layan.J: bold energy, music, travel, and a little mystery.">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--bg:#160a11;--panel:#24101d;--panel2:#311626;--pink:#f3a7c7;--rose:#d95f91;--cream:#fff5f8;--muted:#c9b4bf;--line:#593047;--green:#c6e8d0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#4b1b38 0,transparent 42%),var(--bg);color:var(--cream);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}.wrap{width:min(1100px,92%);margin:auto}.nav{position:sticky;top:0;z-index:5;background:#160a11eF;backdrop-filter:blur(14px);border-bottom:1px solid #ffffff12}.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:72px}.brand{font-size:1.4rem;font-weight:850;letter-spacing:.04em}.brand span{color:var(--pink)}.links{display:flex;gap:24px;color:var(--muted);font-size:.95rem}.links a:hover{color:var(--pink)}.hero{min-height:72vh;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:50px;padding:80px 0 70px}.eyebrow{text-transform:uppercase;letter-spacing:.22em;color:var(--pink);font-size:.76rem;font-weight:750}.hero h1{font-size:clamp(3rem,8vw,6.2rem);line-height:.98;letter-spacing:-.055em;margin:18px 0}.hero h1 em{font-style:normal;color:var(--pink)}.lead{font-size:1.1rem;color:var(--muted);max-width:590px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.btn{border:1px solid var(--line);border-radius:999px;padding:12px 20px;font-weight:750;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}.btn.primary{background:var(--pink);color:#2b1020;border-color:var(--pink)}.btn:hover{transform:translateY(-2px);filter:brightness(1.06)}.portrait{min-height:430px;border-radius:48% 48% 24px 24px;border:1px solid #f3a7c74a;background:linear-gradient(145deg,#6c294f,#311326 55%,#1d0b15);display:flex;align-items:end;justify-content:center;position:relative;overflow:hidden;box-shadow:0 30px 90px #0005}.portrait:before,.portrait:after{content:"";position:absolute;border-radius:50%;border:1px solid #f3a7c72b}.portrait:before{width:300px;height:300px;top:35px}.portrait:after{width:220px;height:220px;top:75px}.portrait-note{z-index:1;text-align:center;padding:30px 20px 34px;background:linear-gradient(transparent,#160a11c9);width:100%}.portrait-note strong{display:block;font-size:1.6rem}.portrait-note span{color:var(--pink);font-size:.9rem}.float{position:absolute;top:22%;right:7%;font-size:2.5rem;color:var(--pink);transform:rotate(12deg)}section{padding:72px 0}.section-head{max-width:650px;margin-bottom:30px}.section-head h2{font-size:clamp(2rem,4vw,3.3rem);line-height:1.1;letter-spacing:-.035em;margin:8px 0 14px}.section-head p{color:var(--muted);margin:0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:linear-gradient(145deg,#2b1422,#1d0d17);border:1px solid var(--line);border-radius:20px;padding:24px}.card .icon{font-size:1.7rem}.card h3{margin:12px 0 6px}.card p{margin:0;color:var(--muted)}.gallery-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}.tile{min-height:250px;border-radius:22px;border:1px solid #f3a7c72a;padding:20px;display:flex;align-items:end;background:linear-gradient(150deg,#733452,#3a1a2c 60%,#1b0b14);overflow:hidden;position:relative}.tile:nth-child(2){background:linear-gradient(150deg,#4a315d,#28142f 60%,#170b17)}.tile:nth-child(3){background:linear-gradient(150deg,#87465d,#3e1b2b 60%,#190a13)}.tile:before{content:"✦";position:absolute;right:20px;top:12px;font-size:3rem;color:#ffffff22}.tile strong{font-size:1.25rem}.chat-shell{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:start}.chat-intro{padding:12px 0}.chat-intro p{color:var(--muted)}.chatbox{background:#1b0d16;border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:0 24px 60px #0003}.chat-top{padding:18px 20px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}.status{width:10px;height:10px;border-radius:50%;background:#a6e6b8;box-shadow:0 0 12px #a6e6b888}.chat-top small{display:block;color:var(--muted)}#messages{height:330px;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:12px}.message{padding:11px 14px;border-radius:16px;max-width:88%;white-space:pre-wrap;overflow-wrap:anywhere;background:#321b2b;align-self:flex-start}.message.user{background:#f3a7c7;color:#2a1020;align-self:flex-end}.message.error{border:1px solid #b35a75;color:#ffd6e2}.chat-form{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line)}.chat-form input{min-width:0;flex:1;background:#2a1522;border:1px solid var(--line);border-radius:999px;padding:13px 16px;color:var(--cream);font:inherit;outline:none}.chat-form input:focus{border-color:var(--pink)}.chat-form button{border:0;border-radius:999px;padding:0 20px;background:var(--pink);color:#2a1020;font-weight:800;cursor:pointer}.chat-form button:disabled{opacity:.55;cursor:wait}.note{padding:0 18px 16px;color:#9d8792;font-size:.78rem}.footer{padding:28px 0;border-top:1px solid #ffffff14;color:var(--muted);font-size:.9rem}.footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.accent{color:var(--pink)}
+.portrait-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}.portrait.has-photo .portrait-photo{display:block}.portrait.has-photo{background:#1d0b15}.portrait.has-photo:before,.portrait.has-photo:after{display:none}
+.gallery-grid{align-items:stretch}.gallery-card{min-width:0;position:relative;min-height:250px;border-radius:22px;overflow:hidden;border:1px solid #f3a7c72a;background:linear-gradient(150deg,#733452,#1b0b14);display:flex;align-items:end}.gallery-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .25s}.gallery-card:hover img{transform:scale(1.035)}.gallery-card strong{z-index:1;display:block;width:100%;padding:18px;background:linear-gradient(transparent,#10060dd9);overflow-wrap:anywhere}.empty-gallery{grid-column:1/-1;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted)}
+.gallery-card{display:block;min-height:300px;padding:0}.photo-open{position:absolute;inset:0;width:100%;height:calc(100% - 54px);border:0;padding:0;background:transparent;cursor:zoom-in;color:inherit;text-align:left}.gallery-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.gallery-card .photo-title{position:absolute;left:0;right:0;bottom:54px;z-index:1;padding:18px;background:linear-gradient(transparent,#10060dd9);pointer-events:none}.photo-actions{position:absolute;bottom:0;left:0;right:0;min-height:54px;display:flex;align-items:center;gap:8px;padding:8px 12px;background:#160a11f2;z-index:2}.photo-action{border:1px solid var(--line);background:#2a1522;color:var(--cream);border-radius:999px;padding:6px 12px;font:inherit;cursor:pointer;min-height:36px}.photo-action:hover{border-color:var(--pink);color:var(--pink)}.photo-action.liked{border-color:#ff3040;color:#ff3040}.photo-action .heart-icon{color:#ff3040}.photo-action-count{font-size:.85rem;color:var(--muted)}
+.photo-modal{display:none;position:fixed;inset:0;z-index:30;background:#09050bea;padding:24px;overflow:auto}.photo-modal.open{display:flex;align-items:center;justify-content:center}.photo-modal-box{width:min(1100px,100%);max-height:94vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}.photo-modal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.photo-modal-top h3{margin:0;overflow-wrap:anywhere}.photo-modal-close{border:1px solid var(--line);background:#321b2b;color:var(--cream);border-radius:50%;width:42px;height:42px;font-size:1.3rem;cursor:pointer}.photo-modal-content{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.9fr);gap:20px;align-items:stretch}.photo-modal-media{display:flex;align-items:center;justify-content:center;min-height:300px;background:#10070d;border-radius:12px;overflow:hidden}.photo-modal-image{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;margin:0 auto;object-fit:contain}.photo-modal-side{display:flex;flex-direction:column;min-width:0;max-height:72vh}.photo-modal-side .photo-actions{position:static;background:transparent;padding:0;min-height:0;margin-bottom:12px}.photo-comments{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;min-height:0;flex:1}.photo-comments h4{margin:0}.photo-comment-list{display:grid;align-content:start;gap:10px;margin:12px 0;overflow:auto;min-height:70px;flex:1}.photo-comment{background:#160a11;border:1px solid var(--line);border-radius:12px;padding:10px 12px;overflow-wrap:anywhere}.photo-comment small{display:block;color:var(--muted);font-size:.75rem}.comment-form{display:grid;grid-template-columns:1fr;gap:10px}.comment-form input,.comment-form textarea{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:#160a11;color:var(--cream);font:inherit}.comment-form textarea{min-height:72px;resize:vertical}.comment-compose{display:grid;grid-template-columns:1fr;gap:8px}.emoji-tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.emoji-toggle{border:1px solid var(--line);border-radius:999px;background:#321b2b;color:var(--cream);padding:7px 12px;font:inherit;cursor:pointer}.emoji-toggle:hover,.emoji-toggle[aria-expanded="true"]{border-color:var(--pink);color:var(--pink)}.emoji-picker{display:none;grid-template-columns:repeat(8,minmax(30px,1fr));gap:4px;padding:9px;background:#160a11;border:1px solid var(--line);border-radius:12px}.emoji-picker.open{display:grid}.emoji-choice{border:0;border-radius:8px;background:transparent;font-size:1.35rem;min-height:34px;cursor:pointer}.emoji-choice:hover,.emoji-choice:focus-visible{background:#593047;outline:1px solid var(--pink)}.interaction-status{color:var(--muted);font-size:.88rem;min-height:1.4em}@media(max-width:760px){.photo-modal{padding:10px}.photo-modal-box{padding:12px;max-height:96vh}.photo-modal-content{grid-template-columns:1fr;gap:12px}.photo-modal-media{min-height:180px}.photo-modal-image{max-height:42vh}.photo-modal-side{max-height:none}.photo-comment-list{max-height:28vh}}
+.admin-link{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px 13px;font:inherit;cursor:pointer}.admin-link:hover{color:var(--pink);border-color:var(--pink)}
+.admin-panel{display:none;padding:26px 0 50px}.admin-panel.open{display:block}.admin-card{max-width:720px;margin:auto;background:#24101d;border:1px solid var(--line);border-radius:22px;padding:24px}.admin-card h2{margin-top:0}.admin-form{display:grid;gap:12px}.admin-form label{font-weight:700}.admin-form input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#160a11;color:var(--cream);font:inherit}.admin-form button,.admin-action{border:0;border-radius:999px;padding:11px 17px;background:var(--pink);color:#2a1020;font-weight:800;cursor:pointer;font:inherit}.admin-row{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}.admin-status{margin:12px 0;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}.admin-status.error{color:#ffb8c8}.admin-status.success{color:#bde9c8}.admin-uploads{display:none}.admin-uploads.visible{display:block}.admin-help{font-size:.88rem;color:var(--muted)}
+@media(max-width:760px){.links{gap:12px;font-size:.85rem}.hero{grid-template-columns:1fr;padding:58px 0;gap:30px}.portrait{min-height:300px;max-width:460px;width:100%;margin:auto}.grid,.gallery-grid,.chat-shell{grid-template-columns:1fr}.tile{min-height:190px}section{padding:54px 0}.nav-inner{min-height:64px}.brand{font-size:1.2rem}}
+@media(max-width:420px){.links{gap:9px}.links a{font-size:.78rem}.chat-form button{padding:0 14px}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap nav-inner"><a class="brand" href="#home">Layan<span>.J</span></a><nav class="links" aria-label="Main navigation"><a href="#about">About</a><a href="#gallery">Gallery</a><a href="#chat">Chat</a></nav></div></header>
+<main>
+<section class="wrap hero" id="home"><div><div class="eyebrow">A little mystery. A lot of personality.</div><h1>Meet <em>Layan.J</em></h1><p class="lead">Curious mind, music in the background, a passport that’s seen a few things, and absolutely no talent for pretending to be boring.</p><div class="actions"><a class="btn primary" href="#chat">Come say hello ↗</a><a class="btn" href="#about">Get to know me</a></div></div><div class="portrait" id="heroPortrait" aria-label="Layan.J portrait"><img class="portrait-photo" id="heroPortraitImage" alt="Layan.J portrait"><div class="float">✧</div><div class="portrait-note"><strong>Layan.J</strong><span>Bold energy · Soft spot for good music</span></div></div></section>
+<section id="about"><div class="wrap"><div class="section-head"><div class="eyebrow">A few things about me</div><h2>Never just one thing.</h2><p>I love a good conversation, a clever joke, a great soundtrack, and stories that make reality feel a little less ordinary.</p></div><div class="grid"><article class="card"><div class="icon">♫</div><h3>Music always</h3><p>From a beautiful melody to a song I can’t stop replaying, I care more about how it feels than what genre it belongs to.</p></article><article class="card"><div class="icon">✦</div><h3>Curious by nature</h3><p>I’m drawn to big questions, bold ideas, science, and the kind of conversation that refuses to stay on the surface.</p></article><article class="card"><div class="icon">✈</div><h3>Made for exploring</h3><p>New places, late nights, cinema—especially science fiction—and finding something unexpected around the next corner.</p></article></div></div></section>
+<section id="gallery"><div class="wrap"><div class="section-head"><div class="eyebrow">Little snapshots</div><h2>The mood board.</h2><p>A few moods that feel like me. This version uses original graphic panels rather than personal photographs.</p></div><div class="gallery-grid" id="galleryGrid"><div class="empty-gallery">Loading Layan.J photos…</div></div></div></section>
+<div class="photo-modal" id="photoModal" role="dialog" aria-modal="true" aria-labelledby="photoModalTitle"><div class="photo-modal-box"><div class="photo-modal-top"><h3 id="photoModalTitle">Layan.J photo</h3><button class="photo-modal-close" id="closePhotoModal" type="button" aria-label="Close photo">×</button></div><div class="photo-modal-content"><div class="photo-modal-media"><img class="photo-modal-image" id="photoModalImage" alt="Enlarged Layan.J photo"></div><div class="photo-modal-side"><div class="photo-actions"><button class="photo-action" id="modalLikeButton" type="button"><span class="heart-icon">♡</span> Like</button><span class="photo-action-count" id="modalLikeCount">0 likes</span></div><div class="photo-comments"><h4>Comments <span id="modalCommentCount" class="photo-action-count">(0)</span></h4><div class="photo-comment-list" id="photoCommentList"></div><form class="comment-form" id="photoCommentForm"><input id="commentName" maxlength="40" placeholder="Your name (optional)" aria-label="Your name (optional)"><div class="comment-compose"><textarea id="commentText" maxlength="500" placeholder="Write a comment…" aria-label="Write a comment" required></textarea><div class="emoji-tools"><button class="emoji-toggle" id="emojiToggle" type="button" aria-expanded="false" aria-controls="emojiPicker">😀 Add emoji</button><span class="admin-help">Choose an emoji to insert it into your comment.</span></div><div class="emoji-picker" id="emojiPicker" role="group" aria-label="Choose an emoji"></div></div><button class="admin-action" type="submit">Post comment</button></form><p class="interaction-status" id="interactionStatus" role="status" aria-live="polite"></p></div></div></div></div></div>
+<section id="chat"><div class="wrap chat-shell"><div class="chat-intro"><div class="eyebrow">Your turn</div><h2>Say hello.<br><span class="accent">I’m listening.</span></h2><p>Drop me a message. I’m here for playful banter, curious questions, and conversations that take an unexpected turn.</p><p style="font-size:.9rem">Be kind, be curious, and bring your best opening line. 😉</p></div><div class="chatbox"><div class="chat-top"><span class="status"></span><div><strong>Layan.J</strong><small>AI chat · replies may take a moment</small></div></div><div id="messages" role="log" aria-live="polite"><div class="message">Hey you. ✨ What’s on your mind?</div></div><form class="chat-form" id="chatForm"><input id="userMessage" name="message" autocomplete="off" maxlength="4000" placeholder="Write your message…" aria-label="Your message" required><button type="submit">Send ↗</button></form><div class="note">Please don’t share passwords, payment details, or other sensitive information.</div></div></div></section>
+</main>
+<footer class="footer"><div class="wrap"><span>© <span id="year"></span> Layan.J</span><span>Stay curious. Stay a little unpredictable. <span class="accent">✦</span></span><button class="admin-link" id="openAdmin" type="button">Admin</button></div></footer>
+<section class="admin-panel" id="adminPanel" aria-label="Layan.J photo administration"><div class="wrap"><div class="admin-card"><h2>Photo studio <span class="accent">✦</span></h2><p class="admin-help">Private management area. Sign in with your administrator account to upload or remove photos. Visitors can view the gallery but cannot manage it.</p><form class="admin-form" id="adminLoginForm"><label for="adminEmail">Administrator email</label><input id="adminEmail" type="email" autocomplete="username" required><label for="adminPassword">Password</label><input id="adminPassword" type="password" autocomplete="current-password" required><button type="submit">Sign in</button></form><div class="admin-status" id="adminStatus" role="status" aria-live="polite"></div><div class="admin-uploads" id="adminUploads"><div class="admin-row"><button class="admin-action" id="logoutAdmin" type="button">Sign out</button></div><hr style="border-color:var(--line)"><h3>Set profile photo</h3><form class="admin-form" id="profileUploadForm"><label for="profileFile">Choose a profile image (JPG, PNG, or WebP; max 10 MB)</label><input id="profileFile" type="file" accept="image/jpeg,image/png,image/webp" required><button type="submit">Save profile photo</button></form><hr style="border-color:var(--line);margin:24px 0"><h3>Add to gallery</h3><form class="admin-form" id="galleryUploadForm"><label for="galleryFiles">Choose one or more images (JPG, PNG, or WebP; each max 10 MB)</label><input id="galleryFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple required><button type="submit">Upload to gallery</button></form><p class="admin-help">After upload, the images become visible in the public gallery. You can remove gallery images below.</p><div id="adminFileList"></div></div></div></div></section>
+<script>
+'use strict';
+const API_URL = 'https://layan-j-chat.linoyaramillo.workers.dev/';
+const form = document.getElementById('chatForm');
+const input = document.getElementById('userMessage');
+const messages = document.getElementById('messages');
+const history = [];
+document.getElementById('year').textContent = new Date().getFullYear();
+function addMessage(text, type = '') {
+  const node = document.createElement('div');
+  node.className = ('message ' + type).trim();
+  node.textContent = text;
+  messages.appendChild(node);
+  messages.scrollTop = messages.scrollHeight;
+  return node;
+}
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const text = input.value.trim();
+  if (!text) return;
+  addMessage(text, 'user');
+  input.value = '';
+  input.disabled = true;
+  const button = form.querySelector('button[type="submit"]');
+  button.disabled = true;
+  const loading = addMessage('One moment…');
+  try {
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, history: history.slice(-12) })
+    });
+    let data;
+    try { data = await response.json(); }
+    catch { throw new Error('The chat service returned an unreadable response.'); }
+    loading.remove();
+    if (!response.ok) {
+      const detail = data.details || data.error || ('HTTP ' + response.status);
+      addMessage('I couldn’t connect just now. ' + detail, 'error');
+      return;
+    }
+    if (typeof data.reply !== 'string' || !data.reply.trim()) {
+      addMessage('The AI service returned an empty reply. Please try again.', 'error');
+      return;
+    }
+    addMessage(data.reply);
+    history.push({ role: 'user', text }, { role: 'model', text: data.reply });
+    if (history.length > 12) history.splice(0, history.length - 12);
+  } catch (error) {
+    loading.remove();
+    addMessage('Connection problem: ' + (error.message || 'Please try again.'), 'error');
+  } finally {
+    input.disabled = false;
+    button.disabled = false;
+    input.focus();
+  }
+});
+</script>
 
-create table if not exists public.gallery_likes (
-  id uuid primary key default gen_random_uuid(),
-  photo_path text not null check (photo_path like 'gallery/%'),
-  visitor_id text not null check (char_length(visitor_id) between 10 and 100),
-  created_at timestamptz not null default now(),
-  constraint gallery_likes_one_per_visitor unique (photo_path, visitor_id)
-);
+<script>
+// IMPORTANT: Replace only these two values with your Supabase project's URL and publishable/anon key.
+const SUPABASE_URL = 'https://ycmgbriehtoudosirycs.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_f2KKy7xiOS8M4BV4tGzfaQ_CBiowkvs';
+const ADMIN_UID = '3f976ea0-cee9-46c2-96ca-99f950546f1e';
+const PHOTO_BUCKET = 'layan-photos';
+const VISITOR_KEY = 'layan-j-gallery-visitor';
+const visitorId = (() => { try { let id = localStorage.getItem(VISITOR_KEY); if (!id) { id = crypto.randomUUID(); localStorage.setItem(VISITOR_KEY, id); } return id; } catch (_) { return crypto.randomUUID(); } })();
+let activePhotoPath = null;
+const supabaseReady = window.supabase && SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('PASTE_') && !SUPABASE_ANON_KEY.includes('PASTE_');
+const sb = supabaseReady ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const galleryGrid = document.getElementById('galleryGrid');
+const heroPortrait = document.getElementById('heroPortrait');
+const heroPortraitImage = document.getElementById('heroPortraitImage');
+const adminPanel = document.getElementById('adminPanel');
+const adminLoginForm = document.getElementById('adminLoginForm');
+const adminUploads = document.getElementById('adminUploads');
+const adminStatus = document.getElementById('adminStatus');
+const adminFileList = document.getElementById('adminFileList');
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
+function setAdminStatus(text, type='') { adminStatus.textContent = text; adminStatus.className = ('admin-status ' + type).trim(); }
+function publicPhotoUrl(path) { return `${SUPABASE_URL}/storage/v1/object/public/${PHOTO_BUCKET}/${path.split('/').map(encodeURIComponent).join('/')}`; }
+function safeFileName(name) { return name.normalize('NFKD').replace(/[^a-zA-Z0-9._-]+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'').slice(-90) || 'photo'; }
+function validateImage(file) { if (!IMAGE_TYPES.includes(file.type)) throw new Error('Please choose a JPG, PNG, or WebP image.'); if (file.size > MAX_IMAGE_BYTES) throw new Error('Each image must be 10 MB or smaller.'); }
+function requireConfig() { if (!sb) throw new Error('Supabase is not connected yet. Add your Project URL and publishable/anon key in the two configuration lines in index.html.'); }
+async function loadProfilePhoto() {
+  if (!sb) return;
+  const url = publicPhotoUrl('profile/main');
+  try { const response = await fetch(url, { method:'HEAD', cache:'no-store' }); if (response.ok) { heroPortraitImage.src = url + '?v=' + Date.now(); heroPortrait.classList.add('has-photo'); } } catch (_) {}
+}
+async function getLikeCount(path) {
+  const { count, error } = await sb.from('gallery_likes').select('id', { count: 'exact', head: true }).eq('photo_path', path);
+  if (error) return null;
+  return count || 0;
+}
+async function getCommentCount(path) {
+  const { count, error } = await sb.from('gallery_comments').select('id', { count: 'exact', head: true }).eq('photo_path', path);
+  if (error) return null;
+  return count || 0;
+}
+async function loadGallery() {
+  if (!sb) { galleryGrid.innerHTML = '<div class="empty-gallery">Photo gallery is being connected. Images will appear here after setup is complete.</div>'; return; }
+  const { data, error } = await sb.storage.from(PHOTO_BUCKET).list('gallery', { limit: 100, sortBy: { column:'created_at', order:'desc' } });
+  if (error) { galleryGrid.innerHTML = '<div class="empty-gallery">The gallery could not load. Please check the public listing policy in Supabase Storage.</div>'; return; }
+  const photos = (data || []).filter(f => f.name && !f.name.startsWith('.') && f.id);
+  galleryGrid.replaceChildren();
+  if (!photos.length) { galleryGrid.innerHTML = '<div class="empty-gallery">No photos yet. The gallery is ready for its first image. ✦</div>'; return; }
+  for (const photo of photos) {
+    const path = 'gallery/' + photo.name;
+    const card = document.createElement('article'); card.className = 'gallery-card';
+    const open = document.createElement('button'); open.type='button'; open.className='photo-open'; open.setAttribute('aria-label','Open photo larger');
+    const img = document.createElement('img'); img.loading = 'lazy'; img.alt = 'Layan.J gallery photo'; img.src = publicPhotoUrl(path);
+    const title = document.createElement('strong'); title.className='photo-title'; title.textContent = photo.name.replace(/^\d+-/, '').replace(/[-_]/g,' ').replace(/\.[^.]+$/,'');
+    open.append(img, title); open.addEventListener('click',()=>openPhoto(path, title.textContent, img.src));
+    const actions = document.createElement('div'); actions.className='photo-actions';
+    const like = document.createElement('button'); like.type='button'; like.className='photo-action'; like.innerHTML='<span class="heart-icon">♡</span> Like';
+    const count = document.createElement('span'); count.className='photo-action-count'; count.textContent='Loading likes…';
+    const comment = document.createElement('button'); comment.type='button'; comment.className='photo-action'; comment.textContent='💬 Comment';
+    const commentsCount = document.createElement('span'); commentsCount.className='photo-action-count'; commentsCount.textContent='Loading comments…';
+    getCommentCount(path).then(n=>{commentsCount.textContent=n===null?'Comments unavailable':`💬 ${n} ${n===1?'comment':'comments'}`;});
+    const liked = (()=>{try{return localStorage.getItem('layan-liked:'+path)==='yes'}catch(_){return false}})(); if(liked){like.classList.add('liked');like.innerHTML='<span class="heart-icon">♥</span> Liked';}
+    getLikeCount(path).then(n=>{count.textContent=n===null?'Likes unavailable':`${n} ${n===1?'like':'likes'}`;});
+    like.addEventListener('click',async()=>{like.disabled=true;try{const already=(()=>{try{return localStorage.getItem('layan-liked:'+path)==='yes'}catch(_){return false}})();if(already){count.textContent='You already liked this photo on this browser.';return;}const {error:likeError}=await sb.from('gallery_likes').insert({photo_path:path,visitor_id:visitorId});if(likeError){if(likeError.code==='23505'){try{localStorage.setItem('layan-liked:'+path,'yes')}catch(_){}like.classList.add('liked');like.innerHTML='<span class="heart-icon">♥</span> Liked';}else throw likeError;}else{try{localStorage.setItem('layan-liked:'+path,'yes')}catch(_){}like.classList.add('liked');like.innerHTML='<span class="heart-icon">♥</span> Liked';}const n=await getLikeCount(path);count.textContent=n===null?'Liked':`${n} ${n===1?'like':'likes'}`;}catch(e){count.textContent='Could not save like. Please try again.';}finally{like.disabled=false;}});
+    comment.addEventListener('click',()=>openPhoto(path,title.textContent,img.src,true));
+    actions.append(like,count,comment,commentsCount);card.append(open,actions);galleryGrid.append(card);
+  }
+}
+const photoModal=document.getElementById('photoModal');
+const photoModalImage=document.getElementById('photoModalImage');
+const photoModalTitle=document.getElementById('photoModalTitle');
+const photoCommentList=document.getElementById('photoCommentList');
+const interactionStatus=document.getElementById('interactionStatus');
+async function openPhoto(path,title,url,focusComment=false){
+  activePhotoPath=path;photoModalTitle.textContent=title||'Layan.J photo';photoModalImage.src=url;photoModal.classList.add('open');document.body.style.overflow='hidden';interactionStatus.textContent='';
+  const {count,error:countError}=await sb.from('gallery_likes').select('id',{count:'exact',head:true}).eq('photo_path',path);
+  document.getElementById('modalLikeCount').textContent=countError?'Likes unavailable':`${count||0} ${(count||0)===1?'like':'likes'}`;
+  const already=(()=>{try{return localStorage.getItem('layan-liked:'+path)==='yes'}catch(_){return false}})();const modalLike=document.getElementById('modalLikeButton');modalLike.classList.toggle('liked',already);modalLike.innerHTML=already?'<span class="heart-icon">♥</span> Liked':'<span class="heart-icon">♡</span> Like';
+  await Promise.all([loadComments(path), updateModalCommentCount(path)]);if(focusComment)document.getElementById('commentText').focus();
+}
+function closePhoto(){photoModal.classList.remove('open');document.body.style.overflow='';activePhotoPath=null;}
+document.getElementById('closePhotoModal').addEventListener('click',closePhoto);
+photoModal.addEventListener('click',e=>{if(e.target===photoModal)closePhoto();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&photoModal.classList.contains('open'))closePhoto();});
+async function updateModalCommentCount(path){const n=await getCommentCount(path);document.getElementById('modalCommentCount').textContent=n===null?'(unavailable)':`(${n||0})`;return n;}
+async function loadComments(path){photoCommentList.replaceChildren();const {data,error}=await sb.from('gallery_comments').select('id,display_name,comment,created_at').eq('photo_path',path).order('created_at',{ascending:false}).limit(50);if(error){interactionStatus.textContent='Comments are not available yet. The interaction setup may still be needed.';return;}if(!data||!data.length){const empty=document.createElement('p');empty.className='admin-help';empty.textContent='No comments yet. Be the first to say something nice. ✨';photoCommentList.append(empty);return;}for(const item of data){const box=document.createElement('div');box.className='photo-comment';const name=document.createElement('strong');name.textContent=item.display_name||'Guest';const comment=document.createElement('div');comment.textContent=item.comment;const date=document.createElement('small');date.textContent=new Date(item.created_at).toLocaleString();box.append(name,comment,date);photoCommentList.append(box);}}
+document.getElementById('modalLikeButton').addEventListener('click',async()=>{if(!activePhotoPath)return;const button=document.getElementById('modalLikeButton');button.disabled=true;try{const already=(()=>{try{return localStorage.getItem('layan-liked:'+activePhotoPath)==='yes'}catch(_){return false}})();if(already){interactionStatus.textContent='You already liked this photo on this browser.';return;}const {error}=await sb.from('gallery_likes').insert({photo_path:activePhotoPath,visitor_id:visitorId});if(error&&error.code!=='23505')throw error;try{localStorage.setItem('layan-liked:'+activePhotoPath,'yes')}catch(_){}button.classList.add('liked');button.innerHTML='<span class="heart-icon">♥</span> Liked';const {count}=await sb.from('gallery_likes').select('id',{count:'exact',head:true}).eq('photo_path',activePhotoPath);document.getElementById('modalLikeCount').textContent=`${count||0} ${(count||0)===1?'like':'likes'}`;await loadGallery();}catch(e){interactionStatus.textContent='Could not save like. Please try again.';}finally{button.disabled=false;}});
+const emojiToggle=document.getElementById('emojiToggle');
+const emojiPicker=document.getElementById('emojiPicker');
+const commentTextArea=document.getElementById('commentText');
+const commentEmojis=['❤️','😍','🥰','😘','😂','🤣','😊','😉','🔥','✨','💖','💕','💗','💋','👏','🙌','👍','🎉','🌹','🌸','🥹','😎','🤍','🫶','😻','💯','📸','⭐','😢','😭','😮','🙏'];
+for(const emoji of commentEmojis){const choice=document.createElement('button');choice.type='button';choice.className='emoji-choice';choice.textContent=emoji;choice.setAttribute('aria-label',`Insert ${emoji}`);choice.addEventListener('click',()=>{const start=commentTextArea.selectionStart??commentTextArea.value.length;const end=commentTextArea.selectionEnd??start;const value=commentTextArea.value;const insertion=emoji;commentTextArea.value=value.slice(0,start)+insertion+value.slice(end);const cursor=start+insertion.length;commentTextArea.focus();commentTextArea.setSelectionRange(cursor,cursor);emojiPicker.classList.remove('open');emojiToggle.setAttribute('aria-expanded','false');});emojiPicker.append(choice);}
+emojiToggle.addEventListener('click',()=>{const isOpen=emojiPicker.classList.toggle('open');emojiToggle.setAttribute('aria-expanded',String(isOpen));});
+document.addEventListener('click',event=>{if(!emojiPicker.contains(event.target)&&!emojiToggle.contains(event.target)){emojiPicker.classList.remove('open');emojiToggle.setAttribute('aria-expanded','false');}});
+document.getElementById('photoCommentForm').addEventListener('submit',async e=>{e.preventDefault();if(!activePhotoPath)return;const text=document.getElementById('commentText').value.trim();const name=document.getElementById('commentName').value.trim().slice(0,40)||'Guest';if(!text){interactionStatus.textContent='Please write a comment first.';return;}if(text.length>500){interactionStatus.textContent='Comments must be 500 characters or fewer.';return;}const submit=e.submitter;submit.disabled=true;interactionStatus.textContent='Posting comment…';try{const {error}=await sb.from('gallery_comments').insert({photo_path:activePhotoPath,visitor_id:visitorId,display_name:name,comment:text});if(error)throw error;document.getElementById('commentText').value='';interactionStatus.textContent='Comment posted.';await Promise.all([loadComments(activePhotoPath),updateModalCommentCount(activePhotoPath),loadGallery()]);}catch(err){interactionStatus.textContent='Could not post comment. Please check that the interaction SQL setup has been run.';}finally{submit.disabled=false;}});
 
-create table if not exists public.gallery_comments (
-  id uuid primary key default gen_random_uuid(),
-  photo_path text not null check (photo_path like 'gallery/%'),
-  visitor_id text not null check (char_length(visitor_id) between 10 and 100),
-  display_name text not null default 'Guest' check (char_length(display_name) between 1 and 40),
-  comment text not null check (char_length(trim(comment)) between 1 and 500),
-  created_at timestamptz not null default now()
-);
+async function checkAdminSession() {
+  if (!sb) return;
+  const { data: { session } } = await sb.auth.getSession();
+  const isAdmin = !!session && session.user.id === ADMIN_UID;
+  adminUploads.classList.toggle('visible', isAdmin);
+  adminLoginForm.style.display = isAdmin ? 'none' : 'grid';
+  if (session && !isAdmin) { await sb.auth.signOut(); setAdminStatus('This account is not authorized to manage photos.', 'error'); }
+  if (isAdmin) { setAdminStatus('Signed in securely as administrator.', 'success'); await renderAdminFiles(); }
+}
+async function renderAdminFiles() {
+  if (!sb) return;
+  const { data, error } = await sb.storage.from(PHOTO_BUCKET).list('gallery', { limit:100, sortBy:{column:'created_at',order:'desc'} });
+  adminFileList.replaceChildren();
+  if (error) { setAdminStatus('Could not list gallery files: ' + error.message, 'error'); return; }
+  for (const file of (data || []).filter(f => f.id)) {
+    const row = document.createElement('div'); row.className='admin-row'; row.style.justifyContent='space-between'; row.style.alignItems='center';
+    const label = document.createElement('span'); label.textContent = file.name;
+    const del = document.createElement('button'); del.type='button'; del.className='admin-action'; del.textContent='Delete';
+    del.addEventListener('click', async () => { if (!confirm('Delete this gallery photo?')) return; const {error: removeError}=await sb.storage.from(PHOTO_BUCKET).remove(['gallery/'+file.name]); if(removeError){setAdminStatus('Delete failed: '+removeError.message,'error');return;} setAdminStatus('Photo deleted.','success'); await loadGallery(); await renderAdminFiles(); });
+    row.append(label,del); adminFileList.append(row);
+  }
+}
+document.getElementById('openAdmin').addEventListener('click', async () => { adminPanel.classList.toggle('open'); if(adminPanel.classList.contains('open')) { adminPanel.scrollIntoView({behavior:'smooth'}); if(!sb) setAdminStatus('Setup needed: enter your Supabase Project URL and publishable/anon key in the configuration lines of index.html.','error'); else await checkAdminSession(); } });
+adminLoginForm.addEventListener('submit', async (event) => { event.preventDefault(); try { requireConfig(); setAdminStatus('Signing in…'); const email=document.getElementById('adminEmail').value.trim(); const password=document.getElementById('adminPassword').value; const {data,error}=await sb.auth.signInWithPassword({email,password}); if(error) throw error; if(data.user.id!==ADMIN_UID){await sb.auth.signOut();throw new Error('This account is not authorized to manage photos.');} setAdminStatus('Signed in securely as administrator.','success'); await checkAdminSession(); } catch(error) { setAdminStatus(error.message || 'Sign-in failed.','error'); } });
+document.getElementById('logoutAdmin').addEventListener('click', async()=>{ if(sb) await sb.auth.signOut(); adminUploads.classList.remove('visible'); adminLoginForm.style.display='grid'; setAdminStatus('You have signed out.'); });
+document.getElementById('profileUploadForm').addEventListener('submit', async(event)=>{ event.preventDefault(); try { requireConfig(); const {data:{user}}=await sb.auth.getUser(); if(!user || user.id!==ADMIN_UID) throw new Error('Please sign in with the administrator account again.'); const file=document.getElementById('profileFile').files[0]; if(!file) throw new Error('Choose a profile image first.'); validateImage(file); setAdminStatus('Uploading profile photo…'); const {error}=await sb.storage.from(PHOTO_BUCKET).upload('profile/main',file,{upsert:true,contentType:file.type,cacheControl:'60'}); if(error) throw error; heroPortraitImage.src=publicPhotoUrl('profile/main')+'?v='+Date.now(); heroPortrait.classList.add('has-photo'); document.getElementById('profileFile').value=''; setAdminStatus('Profile photo updated successfully.','success'); } catch(error) { setAdminStatus(error.message || 'Profile upload failed.','error'); } });
+document.getElementById('galleryUploadForm').addEventListener('submit', async(event)=>{ event.preventDefault(); try { requireConfig(); const {data:{user}}=await sb.auth.getUser(); if(!user || user.id!==ADMIN_UID) throw new Error('Please sign in with the administrator account again.'); const files=Array.from(document.getElementById('galleryFiles').files || []); if(!files.length) throw new Error('Choose at least one image.'); for(const file of files) validateImage(file); setAdminStatus('Uploading '+files.length+' image(s)…'); for(const file of files){ const path='gallery/'+Date.now()+'-'+crypto.randomUUID()+'-'+safeFileName(file.name); const {error}=await sb.storage.from(PHOTO_BUCKET).upload(path,file,{upsert:false,contentType:file.type,cacheControl:'3600'}); if(error) throw error; } document.getElementById('galleryFiles').value=''; setAdminStatus('Gallery upload complete.','success'); await loadGallery(); await renderAdminFiles(); } catch(error) { setAdminStatus(error.message || 'Gallery upload failed.','error'); } });
+(async()=>{ if(!sb){ galleryGrid.innerHTML='<div class="empty-gallery">Photo gallery setup is not complete yet.</div>'; return; } await Promise.all([loadProfilePhoto(),loadGallery()]); await checkAdminSession(); })();
+</script>
 
-create index if not exists gallery_likes_photo_path_idx on public.gallery_likes(photo_path);
-create index if not exists gallery_comments_photo_created_idx on public.gallery_comments(photo_path, created_at desc);
-
-alter table public.gallery_likes enable row level security;
-alter table public.gallery_comments enable row level security;
-
-grant select, insert on public.gallery_likes to anon, authenticated;
-grant select, insert on public.gallery_comments to anon, authenticated;
-
-drop policy if exists "Anyone can view gallery likes" on public.gallery_likes;
-create policy "Anyone can view gallery likes" on public.gallery_likes
-for select to anon, authenticated using (true);
-
-drop policy if exists "Visitors can like gallery photos" on public.gallery_likes;
-create policy "Visitors can like gallery photos" on public.gallery_likes
-for insert to anon, authenticated with check (
-  photo_path like 'gallery/%' and char_length(visitor_id) between 10 and 100
-);
-
-drop policy if exists "Anyone can view gallery comments" on public.gallery_comments;
-create policy "Anyone can view gallery comments" on public.gallery_comments
-for select to anon, authenticated using (true);
-
-drop policy if exists "Visitors can comment on gallery photos" on public.gallery_comments;
-create policy "Visitors can comment on gallery photos" on public.gallery_comments
-for insert to anon, authenticated with check (
-  photo_path like 'gallery/%'
-  and char_length(visitor_id) between 10 and 100
-  and char_length(display_name) between 1 and 40
-  and char_length(trim(comment)) between 1 and 500
-);
+</body>
+</html>
