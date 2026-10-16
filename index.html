@@ -31,7 +31,7 @@
 <section id="chat"><div class="wrap chat-shell"><div class="chat-intro"><div class="eyebrow" data-i18n="chatEyebrow">Your turn</div><h2><span data-i18n="chatTitle">Say hello.</span><br><span class="accent" data-i18n="chatSubtitle">I’m listening.</span></h2><p data-i18n="chatLead">Drop me a message. I’m here for playful banter, curious questions, and conversations that take an unexpected turn.</p><p style="font-size:.9rem">Be kind, be curious, and bring your best opening line. 😉</p></div><div class="chatbox"><div class="chat-top"><span class="status"></span><div><strong>Layan.J</strong><small>AI chat · replies may take a moment</small></div></div><div id="messages" role="log" aria-live="polite"><div class="message">Hey you. ✨ What’s on your mind?</div></div><form class="chat-form" id="chatForm"><input id="userMessage" name="message" autocomplete="off" maxlength="4000" placeholder="Write your message…" aria-label="Your message" data-i18n-placeholder="chatPlaceholder" required><button type="submit" data-i18n="send">Send ↗</button></form><div class="note">Please don’t share passwords, payment details, or other sensitive information.</div></div></div></section>
 </main>
 <footer class="footer"><div class="wrap"><span>© <span id="year"></span> Layan.J</span><span>Stay curious. Stay a little unpredictable. <span class="accent">✦</span></span><button class="admin-link" id="openAdmin" type="button">Admin</button></div></footer>
-<section class="admin-panel" id="adminPanel" aria-label="Layan.J photo administration"><div class="wrap"><div class="admin-card"><h2>Photo studio <span class="accent">✦</span></h2><p class="admin-help">Private management area. Sign in with your administrator account to upload or remove photos. Visitors can view the gallery but cannot manage it.</p><form class="admin-form" id="adminLoginForm"><label for="adminEmail">Administrator email</label><input id="adminEmail" type="email" autocomplete="username" required><label for="adminPassword">Password</label><input id="adminPassword" type="password" autocomplete="current-password" required><button type="submit">Sign in</button></form><div class="admin-status" id="adminStatus" role="status" aria-live="polite"></div><div class="admin-uploads" id="adminUploads"><div class="admin-row"><button class="admin-action" id="logoutAdmin" type="button">Sign out</button></div><hr style="border-color:var(--line)"><h3>Set profile photo</h3><form class="admin-form" id="profileUploadForm"><label for="profileFile">Choose a profile image (JPG, PNG, or WebP; max 10 MB)</label><input id="profileFile" type="file" accept="image/jpeg,image/png,image/webp" required><button type="submit">Save profile photo</button></form><button class="admin-action" id="deleteProfilePhoto" type="button">Delete profile photo</button> <hr style="border-color:var(--line);margin:24px 0"><h3>Add to gallery</h3><form class="admin-form" id="galleryUploadForm"><label for="galleryFiles">Choose one or more images (JPG, PNG, or WebP; each max 10 MB)</label><input id="galleryFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple required><button type="submit">Upload to gallery</button></form><p class="admin-help">After upload, the images become visible in the public gallery. You can remove gallery images below.</p><div id="adminFileList"></div></div></div></div></section>
+<section class="admin-panel" id="adminPanel" aria-label="Layan.J photo administration"><div class="wrap"><div class="admin-card"><h2>Photo studio <span class="accent">✦</span></h2><p class="admin-help">Private management area. Sign in with your administrator account to upload or remove photos. Visitors can view the gallery but cannot manage it.</p><form class="admin-form" id="adminLoginForm"><label for="adminEmail">Administrator email</label><input id="adminEmail" type="email" autocomplete="username" required><label for="adminPassword">Password</label><input id="adminPassword" type="password" autocomplete="current-password" required><button type="submit">Sign in</button></form><div class="admin-status" id="adminStatus" role="status" aria-live="polite"></div><div class="admin-uploads" id="adminUploads"><div class="admin-row"><button class="admin-action" id="logoutAdmin" type="button">Sign out</button></div><hr style="border-color:var(--line)"><h3>Set profile photo</h3><form class="admin-form" id="profileUploadForm"><label for="profileFile">Choose a profile image (JPG, PNG, or WebP; max 10 MB)</label><input id="profileFile" type="file" accept="image/jpeg,image/png,image/webp" required><button type="submit">Save profile photo</button></form><div class="admin-row" style="margin-top:12px"><button class="admin-action" id="deleteProfilePhoto" type="button">Delete profile photo</button></div><hr style="border-color:var(--line);margin:24px 0"><h3>Add to gallery</h3><form class="admin-form" id="galleryUploadForm"><label for="galleryFiles">Choose one or more images (JPG, PNG, or WebP; each max 10 MB)</label><input id="galleryFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple required><button type="submit">Upload to gallery</button></form><p class="admin-help">After upload, the images become visible in the public gallery. You can remove gallery images below.</p><div id="adminFileList"></div></div></div></div></section>
 <script>
 'use strict';
 const API_URL = 'https://layan-j-chat.linoyaramillo.workers.dev/';
@@ -245,41 +245,34 @@ async function renderAdminFiles() {
 document.getElementById('openAdmin').addEventListener('click', async () => { adminPanel.classList.toggle('open'); if(adminPanel.classList.contains('open')) { adminPanel.scrollIntoView({behavior:'smooth'}); if(!sb) setAdminStatus('Setup needed: enter your Supabase Project URL and publishable/anon key in the configuration lines of index.html.','error'); else await checkAdminSession(); } });
 adminLoginForm.addEventListener('submit', async (event) => { event.preventDefault(); try { requireConfig(); setAdminStatus('Signing in…'); const email=document.getElementById('adminEmail').value.trim(); const password=document.getElementById('adminPassword').value; const {data,error}=await sb.auth.signInWithPassword({email,password}); if(error) throw error; if(data.user.id!==ADMIN_UID){await sb.auth.signOut();throw new Error('This account is not authorized to manage photos.');} setAdminStatus('Signed in securely as administrator.','success'); await checkAdminSession(); } catch(error) { setAdminStatus(error.message || 'Sign-in failed.','error'); } });
 document.getElementById('logoutAdmin').addEventListener('click', async()=>{ if(sb) await sb.auth.signOut(); adminUploads.classList.remove('visible'); adminLoginForm.style.display='grid'; setAdminStatus('You have signed out.'); });
-document.getElementById('profileUploadForm').addEventListener('submit',document.getElementById('deleteProfilePhoto').addEventListener('click', async () => {
-  if (!confirm('Are you sure you want to delete the profile photo?')) return;
-
-  const button = document.getElementById('deleteProfilePhoto');
-  button.disabled = true;
-
-  try {
-    requireConfig();
-
-    const { data: { user }, error: authError } = await sb.auth.getUser();
-    if (authError) throw authError;
-
-    if (!user || user.id !== ADMIN_UID) {
-      throw new Error('Please sign in with the administrator account again.');
+// Delete the profile photo only after explicit administrator confirmation.
+const deleteProfilePhotoButton = document.getElementById('deleteProfilePhoto');
+if (deleteProfilePhotoButton) {
+  deleteProfilePhotoButton.addEventListener('click', async () => {
+    if (!confirm('Are you sure you want to delete the profile photo?')) return;
+    deleteProfilePhotoButton.disabled = true;
+    try {
+      requireConfig();
+      const { data: { user }, error: authError } = await sb.auth.getUser();
+      if (authError) throw authError;
+      if (!user || user.id !== ADMIN_UID) {
+        throw new Error('Please sign in with the administrator account again.');
+      }
+      setAdminStatus('Deleting profile photo…');
+      const { error } = await sb.storage.from(PHOTO_BUCKET).remove(['profile/main']);
+      if (error) throw error;
+      heroPortraitImage.removeAttribute('src');
+      heroPortrait.classList.remove('has-photo');
+      setAdminStatus('Profile photo deleted successfully.', 'success');
+    } catch (error) {
+      setAdminStatus(error.message || 'Profile photo deletion failed.', 'error');
+    } finally {
+      deleteProfilePhotoButton.disabled = false;
     }
+  });
+}
 
-    setAdminStatus('Deleting profile photo…');
-
-    const { error } = await sb.storage
-      .from(PHOTO_BUCKET)
-      .remove(['profile/main']);
-
-    if (error) throw error;
-
-    heroPortraitImage.removeAttribute('src');
-    heroPortrait.classList.remove('has-photo');
-
-    setAdminStatus('Profile photo deleted successfully.', 'success');
-
-  } catch (error) {
-    setAdminStatus(error.message || 'Profile photo deletion failed.', 'error');
-  } finally {
-    button.disabled = false;
-  }
-}); async(event)=>{ event.preventDefault(); try { requireConfig(); const {data:{user}}=await sb.auth.getUser(); if(!user || user.id!==ADMIN_UID) throw new Error('Please sign in with the administrator account again.'); const file=document.getElementById('profileFile').files[0]; if(!file) throw new Error('Choose a profile image first.'); validateImage(file); setAdminStatus('Uploading profile photo…'); const {error}=await sb.storage.from(PHOTO_BUCKET).upload('profile/main',file,{upsert:true,contentType:file.type,cacheControl:'60'}); if(error) throw error; heroPortraitImage.src=publicPhotoUrl('profile/main')+'?v='+Date.now(); heroPortrait.classList.add('has-photo'); document.getElementById('profileFile').value=''; setAdminStatus('Profile photo updated successfully.','success'); } catch(error) { setAdminStatus(error.message || 'Profile upload failed.','error'); } });
+document.getElementById('profileUploadForm').addEventListener('submit', async(event)=>{ event.preventDefault(); try { requireConfig(); const {data:{user}}=await sb.auth.getUser(); if(!user || user.id!==ADMIN_UID) throw new Error('Please sign in with the administrator account again.'); const file=document.getElementById('profileFile').files[0]; if(!file) throw new Error('Choose a profile image first.'); validateImage(file); setAdminStatus('Uploading profile photo…'); const {error}=await sb.storage.from(PHOTO_BUCKET).upload('profile/main',file,{upsert:true,contentType:file.type,cacheControl:'60'}); if(error) throw error; heroPortraitImage.src=publicPhotoUrl('profile/main')+'?v='+Date.now(); heroPortrait.classList.add('has-photo'); document.getElementById('profileFile').value=''; setAdminStatus('Profile photo updated successfully.','success'); } catch(error) { setAdminStatus(error.message || 'Profile upload failed.','error'); } });
 document.getElementById('galleryUploadForm').addEventListener('submit', async(event)=>{ event.preventDefault(); try { requireConfig(); const {data:{user}}=await sb.auth.getUser(); if(!user || user.id!==ADMIN_UID) throw new Error('Please sign in with the administrator account again.'); const files=Array.from(document.getElementById('galleryFiles').files || []); if(!files.length) throw new Error('Choose at least one image.'); for(const file of files) validateImage(file); setAdminStatus('Uploading '+files.length+' image(s)…'); for(const file of files){ const path='gallery/'+Date.now()+'-'+crypto.randomUUID()+'-'+safeFileName(file.name); const {error}=await sb.storage.from(PHOTO_BUCKET).upload(path,file,{upsert:false,contentType:file.type,cacheControl:'3600'}); if(error) throw error; } document.getElementById('galleryFiles').value=''; setAdminStatus('Gallery upload complete.','success'); await loadGallery(); await renderAdminFiles(); } catch(error) { setAdminStatus(error.message || 'Gallery upload failed.','error'); } });
 sb?.auth.onAuthStateChange(()=>{setTimeout(()=>refreshVisitorAuth(),0);});
 setLanguage('en');
