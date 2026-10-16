@@ -13,22 +13,43 @@
 .portrait-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;border-radius:50%;clip-path:circle(50% at 50% 50%)}.portrait.has-photo .portrait-photo{display:block}.portrait.has-photo{background:#1d0b15}.portrait.has-photo:before,.portrait.has-photo:after{display:none}
 .gallery-grid{align-items:stretch}.gallery-card{min-width:0;position:relative;min-height:250px;border-radius:22px;overflow:hidden;border:1px solid #f3a7c72a;background:linear-gradient(150deg,#733452,#1b0b14);display:flex;align-items:end}.gallery-card img,.gallery-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .25s}.gallery-preview{pointer-events:none;background:#10070d}.video-badge{display:inline-block;border:1px solid #ffffff66;border-radius:999px;padding:2px 7px;font-size:.72rem;letter-spacing:.04em;background:#160a11cc}.gallery-card:hover img,.gallery-card:hover video{transform:scale(1.035)}.gallery-card strong{z-index:1;display:block;width:100%;padding:18px;background:linear-gradient(transparent,#10060dd9);overflow-wrap:anywhere}.empty-gallery{grid-column:1/-1;padding:24px;border:1px dashed var(--line);border-radius:18px;color:var(--muted)}
 .gallery-card{display:block;min-height:300px;padding:0}.photo-open{position:absolute;inset:0;width:100%;height:calc(100% - 54px);border:0;padding:0;background:transparent;cursor:zoom-in;color:inherit;text-align:left}.gallery-card img,.gallery-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.gallery-card .photo-title{position:absolute;left:0;right:0;bottom:54px;z-index:1;padding:18px;background:linear-gradient(transparent,#10060dd9);pointer-events:none}.photo-actions{position:absolute;bottom:0;left:0;right:0;min-height:54px;display:flex;align-items:center;gap:8px;padding:8px 12px;background:#160a11f2;z-index:2}.photo-action{border:1px solid var(--line);background:#2a1522;color:var(--cream);border-radius:999px;padding:6px 12px;font:inherit;cursor:pointer;min-height:36px}.photo-action:hover{border-color:var(--pink);color:var(--pink)}.photo-action.liked{border-color:#ff3040;color:#ff3040}.photo-action .heart-icon{color:#ff3040}.photo-action-count{font-size:.85rem;color:var(--muted)}
-.photo-modal{display:none;position:fixed;inset:0;z-index:30;background:#09050bea;padding:24px;overflow:auto}.photo-modal.open{display:flex;align-items:center;justify-content:center}.photo-modal-box{width:min(1100px,100%);max-height:94vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}.photo-modal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.photo-modal-top h3{margin:0;overflow-wrap:anywhere}.photo-modal-close{border:1px solid var(--line);background:#321b2b;color:var(--cream);border-radius:50%;width:42px;height:42px;font-size:1.3rem;cursor:pointer}.photo-modal-content{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.9fr);gap:20px;align-items:stretch}.photo-modal-media{display:flex;align-items:center;justify-content:center;min-height:300px;background:#10070d;border-radius:12px;overflow:hidden}.photo-modal-image{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;margin:0 auto;object-fit:contain}.photo-modal-side{display:flex;flex-direction:column;min-width:0;max-height:72vh}.photo-modal-side .photo-actions{position:static;background:transparent;padding:0;min-height:0;margin-bottom:12px}.photo-comments{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;min-height:0;flex:1}.photo-comments h4{margin:0}.photo-comment-list{display:grid;align-content:start;gap:10px;margin:12px 0;overflow:auto;min-height:70px;flex:1}.photo-comment{background:#160a11;border:1px solid var(--line);border-radius:12px;padding:10px 12px;overflow-wrap:anywhere}.photo-comment small{display:block;color:var(--muted);font-size:.75rem}.comment-form{display:grid;grid-template-columns:1fr;gap:10px}.comment-form input,.comment-form textarea{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:#160a11;color:var(--cream);font:inherit}.comment-form textarea{min-height:72px;resize:vertical}.interaction-status{color:var(--muted);font-size:.88rem;min-height:1.4em}@media(max-width:760px){.photo-modal{padding:10px}.photo-modal-box{padding:12px;max-height:96vh}.photo-modal-content{grid-template-columns:1fr;gap:12px}.photo-modal-media{min-height:180px}.photo-modal-image{max-height:42vh}.photo-modal-side{max-height:none}.photo-comment-list{max-height:28vh}}
+.photo-modal{display:none;position:fixed;inset:0;z-index:30;background:#09050bea;padding:24px;overflow:auto}.photo-modal.open{display:flex;align-items:center;justify-content:center}.photo-modal-box{width:min(1100px,100%);max-height:94vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}.photo-modal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.photo-modal-top h3{margin:0;overflow-wrap:anywhere}.photo-modal-close{border:1px solid var(--line);background:#321b2b;color:var(--cream);border-radius:50%;width:42px;height:42px;font-size:1.3rem;cursor:pointer}.photo-modal-content{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.9fr);gap:20px;align-items:stretch}.photo-modal-media{display:flex;align-items:center;justify-content:center;min-height:300px;background:#10070d;border-radius:12px;overflow:hidden}.photo-modal-image{display:block;max-width:100%;max-height:72vh;width:auto;height:auto;margin:0 auto;object-fit:contain}.photo-modal-image.gallery-modal-video{width:100%;height:auto;max-height:72vh;object-fit:contain;background:#000}.photo-modal-side{display:flex;flex-direction:column;min-width:0;max-height:72vh}.photo-modal-side .photo-actions{position:static;background:transparent;padding:0;min-height:0;margin-bottom:12px}.photo-comments{border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;min-height:0;flex:1}.photo-comments h4{margin:0}.photo-comment-list{display:grid;align-content:start;gap:10px;margin:12px 0;overflow:auto;min-height:70px;flex:1}.photo-comment{background:#160a11;border:1px solid var(--line);border-radius:12px;padding:10px 12px;overflow-wrap:anywhere}.photo-comment small{display:block;color:var(--muted);font-size:.75rem}.comment-form{display:grid;grid-template-columns:1fr;gap:10px}.comment-form input,.comment-form textarea{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:#160a11;color:var(--cream);font:inherit}.comment-form textarea{min-height:72px;resize:vertical}.interaction-status{color:var(--muted);font-size:.88rem;min-height:1.4em}@media(max-width:760px){.photo-modal{padding:10px}.photo-modal-box{padding:12px;max-height:96vh}.photo-modal-content{grid-template-columns:1fr;gap:12px}.photo-modal-media{min-height:180px}.photo-modal-image{max-height:42vh}.photo-modal-side{max-height:none}.photo-comment-list{max-height:28vh}}
 .admin-link{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:8px 13px;font:inherit;cursor:pointer}.admin-link:hover{color:var(--pink);border-color:var(--pink)}
 .admin-panel{display:none;padding:26px 0 50px}.admin-panel.open{display:block}.admin-card{max-width:720px;margin:auto;background:#24101d;border:1px solid var(--line);border-radius:22px;padding:24px}.admin-card h2{margin-top:0}.admin-form{display:grid;gap:12px}.admin-form label{font-weight:700}.admin-form input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#160a11;color:var(--cream);font:inherit}.admin-form button,.admin-action{border:0;border-radius:999px;padding:11px 17px;background:var(--pink);color:#2a1020;font-weight:800;cursor:pointer;font:inherit}.admin-row{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}.admin-status{margin:12px 0;color:var(--muted);white-space:pre-wrap;overflow-wrap:anywhere}.admin-status.error{color:#ffb8c8}.admin-status.success{color:#bde9c8}.admin-uploads{display:none}.admin-uploads.visible{display:block}.admin-help{font-size:.88rem;color:var(--muted)}
 @media(max-width:760px){.links{gap:12px;font-size:.85rem}.hero{grid-template-columns:1fr;padding:58px 0;gap:30px}.portrait{min-height:0;max-width:min(82vw,380px);width:100%;aspect-ratio:1 / 1;margin:auto}.portrait:before{width:70%;height:70%;top:10%}.portrait:after{width:52%;height:52%;top:20%}.grid,.gallery-grid,.chat-shell{grid-template-columns:1fr}.tile{min-height:190px}section{padding:54px 0}.nav-inner{min-height:64px}.brand{font-size:1.2rem}}
 @media(max-width:420px){.links{gap:9px}.links a{font-size:.78rem}.chat-form button{padding:0 14px}}
+
+/* Floating Messenger-inspired chat */
+.social-auth{align-items:center}.social-btn{border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:#2a1522;color:var(--cream);font:inherit;font-weight:700;cursor:pointer}.social-btn:hover{border-color:var(--pink)}
+.chat-launcher-wrap{position:fixed;right:24px;bottom:22px;z-index:40;display:flex;flex-direction:column;align-items:flex-end;gap:12px;max-width:calc(100vw - 24px)}
+.chat-launcher{min-height:58px;display:flex;align-items:center;gap:9px;padding:10px 17px;border:1px solid #a98be8;border-radius:999px;background:linear-gradient(135deg,#6e4bb8,#8b5fc7);color:#fff;box-shadow:0 10px 30px #0006;cursor:pointer;font:inherit;font-weight:800}
+.chat-launcher svg{width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.chat-launcher .chat-dots{stroke-width:3.2}.chat-window{width:min(390px,calc(100vw - 24px));height:min(590px, min(76dvh, 680px));min-height:340px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--bg);box-shadow:0 22px 70px #0008}.chatbox-floating{height:100%;display:flex;flex-direction:column;border-radius:20px;box-shadow:none}.chatbox-floating .chat-top{flex:0 0 auto;padding:12px 13px;gap:9px}.chat-heading{flex:1;min-width:0}.chat-heading small{font-size:.75rem}.chat-avatar{width:34px;height:34px;flex:0 0 34px;border-radius:50%;object-fit:cover;background:#58324c;border:1px solid #ffffff20}.chat-top .status{margin-inline-start:0}.chat-window-btn{width:34px;height:34px;border:0;border-radius:50%;background:#3a2032;color:var(--cream);font-size:1.25rem;cursor:pointer}.chat-window-btn:hover{background:#58304a}.chatbox-floating #messages{height:auto;flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding:15px 12px}.message-row{display:flex;align-items:flex-end;gap:7px;max-width:100%}.message-row .message{max-width:calc(100% - 42px)}.message-row.user-row{flex-direction:row-reverse;align-self:flex-end}.message-row.layan-row{align-self:flex-start}.message-row.user-row .message{background:#6e4bb8;color:#fff;border-bottom-right-radius:5px}.message-row.layan-row .message{border-bottom-left-radius:5px}.message-row .chat-avatar{width:28px;height:28px;flex-basis:28px}.chatbox-floating .chat-form{flex:0 0 auto;align-items:center;padding:10px;gap:7px}.chatbox-floating .chat-form input{font-size:16px;padding:10px 12px}.chatbox-floating .chat-form button{min-height:42px;padding:0 13px}.chatbox-floating .chat-form .user-avatar{width:28px;height:28px;flex-basis:28px}.chatbox-floating .note{flex:0 0 auto;padding:0 12px 10px;font-size:.7rem}.chat-login-gate{padding:12px;border-top:1px solid var(--line);background:#24101d}.chat-login-gate p{margin:0 0 8px;color:var(--muted)}.chat-login-button{border:0;border-radius:999px;background:var(--pink);color:#2a1020;font:inherit;font-weight:800;padding:9px 15px;cursor:pointer}.chatbox-floating .message.error{align-self:flex-start}.chat-placeholder{display:none!important}
+@media(max-width:600px){.chat-launcher-wrap{right:12px;bottom:12px}.chat-launcher{min-height:54px;padding:9px 13px}.chat-window{width:calc(100vw - 20px);height:min(72dvh,620px);min-height:320px;border-radius:18px}.chatbox-floating{border-radius:18px}.nav .links a[data-open-chat]{display:none}}
+@media(max-width:360px){.chat-window{width:calc(100vw - 16px);height:68dvh;min-height:300px}.chat-launcher-label{display:none}.chat-launcher{width:54px;height:54px;justify-content:center;padding:0}}
+
 </style>
 </head>
 <body>
-<header class="nav"><div class="wrap nav-inner"><a class="brand" href="#home">Layan<span>.J</span></a><nav class="links" aria-label="Main navigation"><a href="#about" data-i18n="navAbout">About</a><a href="#gallery" data-i18n="navGallery">Gallery</a><a href="#chat" data-i18n="navChat">Chat</a></nav><div class="nav-tools"><button class="lang-btn" id="languageToggle" type="button" aria-label="Switch language">العربية</button><button class="auth-nav-btn" id="openAuth" type="button" data-i18n="signIn">Sign in</button></div></div></header>
-<section class="auth-panel" id="authPanel" hidden><div class="wrap"><div class="auth-card"><h2 data-i18n="accountTitle">Sign in to Layan.J</h2><p data-i18n="accountHelp">Use your email and password to sign in, or create an account.</p><form class="auth-form" id="visitorAuthForm"><input id="visitorEmail" type="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required><input id="visitorPassword" type="password" autocomplete="current-password" minlength="6" placeholder="Password (at least 6 characters)" aria-label="Password" required><button id="visitorSignIn" type="submit" data-i18n="signIn">Sign in</button><button id="visitorSignUp" type="button" data-i18n="createAccount">Create account</button></form><div class="auth-actions"><button id="visitorSignOut" class="lang-btn" type="button" hidden data-i18n="signOut">Sign out</button></div><div class="auth-status" id="visitorAuthStatus" role="status" aria-live="polite"></div></div></div></section>
+<header class="nav"><div class="wrap nav-inner"><a class="brand" href="#home">Layan<span>.J</span></a><nav class="links" aria-label="Main navigation"><a href="#about" data-i18n="navAbout">About</a><a href="#gallery" data-i18n="navGallery">Gallery</a><a href="#chat" data-open-chat data-i18n="navChat">Chat</a></nav><div class="nav-tools"><button class="lang-btn" id="languageToggle" type="button" aria-label="Switch language">العربية</button><button class="auth-nav-btn" id="openAuth" type="button" data-i18n="signIn">Sign in</button></div></div></header>
+<section class="auth-panel" id="authPanel" hidden><div class="wrap"><div class="auth-card"><h2 data-i18n="accountTitle">Sign in to Layan.J</h2><p data-i18n="accountHelp">Use your email and password to sign in, or create an account.</p><form class="auth-form" id="visitorAuthForm"><input id="visitorEmail" type="email" autocomplete="email" placeholder="Email address" aria-label="Email address" required><input id="visitorPassword" type="password" autocomplete="current-password" minlength="6" placeholder="Password (at least 6 characters)" aria-label="Password" required><button id="visitorSignIn" type="submit" data-i18n="signIn">Sign in</button><button id="visitorSignUp" type="button" data-i18n="createAccount">Create account</button></form><div class="auth-actions" id="emailAuthActions"><button id="visitorResetPassword" class="lang-btn" type="button" data-i18n="resetPassword">Forgot password?</button><button id="visitorSignOut" class="lang-btn" type="button" hidden data-i18n="signOut">Sign out</button></div><div class="auth-status" id="visitorAuthStatus" role="status" aria-live="polite"></div></div></div></section>
 <main>
-<section class="wrap hero" id="home"><div><div class="eyebrow" data-i18n="heroEyebrow">A little mystery. A lot of personality.</div><h1>Meet <em>Layan.J</em></h1><p class="lead" data-i18n="heroLead">Curious mind, music in the background, a passport that’s seen a few things, and absolutely no talent for pretending to be boring.</p><div class="actions"><a class="btn primary" href="#chat" data-i18n="heroChat">Come say hello ↗</a><a class="btn" href="#about" data-i18n="heroAbout">Get to know me</a></div></div><div class="portrait" id="heroPortrait" aria-label="Layan.J portrait"><img class="portrait-photo" id="heroPortraitImage" alt="Layan.J portrait"><div class="float">✧</div><div class="portrait-note"><strong>Layan.J</strong><span>Bold energy · Soft spot for good music</span></div></div></section>
+<section class="wrap hero" id="home"><div><div class="eyebrow" data-i18n="heroEyebrow">A little mystery. A lot of personality.</div><h1>Meet <em>Layan.J</em></h1><p class="lead" data-i18n="heroLead">Curious mind, music in the background, a passport that’s seen a few things, and absolutely no talent for pretending to be boring.</p><div class="actions"><a class="btn primary" href="#chat" data-open-chat data-i18n="heroChat">Come say hello ↗</a><a class="btn" href="#about" data-i18n="heroAbout">Get to know me</a></div></div><div class="portrait" id="heroPortrait" aria-label="Layan.J portrait"><img class="portrait-photo" id="heroPortraitImage" alt="Layan.J portrait"><div class="float">✧</div><div class="portrait-note"><strong>Layan.J</strong><span>Bold energy · Soft spot for good music</span></div></div></section>
 <section id="about"><div class="wrap"><div class="section-head"><div class="eyebrow" data-i18n="aboutEyebrow">A few things about me</div><h2 data-i18n="aboutTitle">Never just one thing.</h2><p data-i18n="aboutLead">I love a good conversation, a clever joke, a great soundtrack, and stories that make reality feel a little less ordinary.</p></div><div class="grid"><article class="card"><div class="icon">♫</div><h3>Music always</h3><p>From a beautiful melody to a song I can’t stop replaying, I care more about how it feels than what genre it belongs to.</p></article><article class="card"><div class="icon">✦</div><h3>Curious by nature</h3><p>I’m drawn to big questions, bold ideas, science, and the kind of conversation that refuses to stay on the surface.</p></article><article class="card"><div class="icon">✈</div><h3>Made for exploring</h3><p>New places, late nights, cinema—especially science fiction—and finding something unexpected around the next corner.</p></article></div></div></section>
 <section id="gallery"><div class="wrap"><div class="section-head"><div class="eyebrow" data-i18n="galleryEyebrow">Little snapshots</div><h2 data-i18n="galleryTitle">The mood board.</h2><p>A few moods that feel like me. This version uses original graphic panels rather than personal photographs.</p></div><div class="gallery-grid" id="galleryGrid"><div class="empty-gallery">Loading Layan.J photos…</div></div></div></section>
 <div class="photo-modal" id="photoModal" role="dialog" aria-modal="true" aria-labelledby="photoModalTitle"><div class="photo-modal-box"><div class="photo-modal-top"><h3 id="photoModalTitle">Layan.J photo</h3><button class="photo-modal-close" id="closePhotoModal" type="button" aria-label="Close photo">×</button></div><div class="photo-modal-content"><div class="photo-modal-media"><img class="photo-modal-image" id="photoModalImage" alt="Enlarged Layan.J photo"></div><div class="photo-modal-side"><div class="photo-actions"><button class="photo-action" id="modalLikeButton" type="button"><span class="heart-icon">♡</span> Like</button><span class="photo-action-count" id="modalLikeCount">0 likes</span></div><div class="photo-comments"><h4>Comments <span id="modalCommentCount" class="photo-action-count">(0)</span></h4><div class="photo-comment-list" id="photoCommentList"></div><form class="comment-form" id="photoCommentForm"><input id="commentName" maxlength="40" placeholder="Your name (optional)" aria-label="Your name (optional)"><textarea id="commentText" maxlength="500" placeholder="Write a comment…" aria-label="Write a comment" required></textarea><button class="admin-action" type="submit">Post comment</button></form><p class="interaction-status" id="interactionStatus" role="status" aria-live="polite"></p></div></div></div></div></div>
-<section id="chat"><div class="wrap chat-shell"><div class="chat-intro"><div class="eyebrow" data-i18n="chatEyebrow">Your turn</div><h2><span data-i18n="chatTitle">Say hello.</span><br><span class="accent" data-i18n="chatSubtitle">I’m listening.</span></h2><p data-i18n="chatLead">Drop me a message. I’m here for playful banter, curious questions, and conversations that take an unexpected turn.</p><p style="font-size:.9rem">Be kind, be curious, and bring your best opening line. 😉</p></div><div class="chatbox"><div class="chat-top"><span class="status"></span><div><strong>Layan.J</strong><small>AI chat · replies may take a moment</small></div></div><div id="messages" role="log" aria-live="polite"><div class="message">Hey you. ✨ What’s on your mind?</div></div><form class="chat-form" id="chatForm"><input id="userMessage" name="message" autocomplete="off" maxlength="4000" placeholder="Write your message…" aria-label="Your message" data-i18n-placeholder="chatPlaceholder" required><button type="submit" data-i18n="send">Send ↗</button></form><div class="note">Please don’t share passwords, payment details, or other sensitive information.</div></div></div></section>
+<section id="chat" class="chat-placeholder" aria-label="Chat is available from the floating button" hidden></section>
+<div class="chat-launcher-wrap" id="chatLauncherWrap">
+  <button class="chat-launcher" id="chatLauncher" type="button" aria-label="Open Layan.J chat" aria-controls="chatWindow" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.9 3 3 6.45 3 10.7c0 2.15 1.02 4.08 2.7 5.42L5 20l4.25-2.15c.88.25 1.8.38 2.75.38 5.1 0 9-3.3 9-7.53S17.1 3 12 3Z"/><path d="M7.7 10.8h.02m4.26 0H12m4.3 0h.02" class="chat-dots"/></svg><span class="chat-launcher-label" data-i18n="navChat">Chat</span></button>
+  <section class="chat-window" id="chatWindow" aria-label="Layan.J chat" hidden>
+    <div class="chatbox chatbox-floating">
+      <div class="chat-top"><img class="chat-avatar layan-avatar" id="layanChatAvatar" alt="Layan.J" src=""><span class="status"></span><div class="chat-heading"><strong>Layan.J</strong><small data-i18n="chatOnline">AI chat · replies may take a moment</small></div><button class="chat-window-btn" id="minimizeChat" type="button" aria-label="Minimize chat">—</button><button class="chat-window-btn" id="closeChat" type="button" aria-label="Close chat">×</button></div>
+      <div class="chat-login-gate" id="chatLoginGate" hidden><p data-i18n="chatLoginPrompt">Sign in to start a conversation.</p><button type="button" class="chat-login-button" id="chatLoginButton" data-i18n="signIn">Sign in</button></div>
+      <div id="messages" role="log" aria-live="polite"><div class="message-row layan-row"><img class="chat-avatar layan-avatar" alt="Layan.J" src=""><div class="message">Hey you. ✨ What’s on your mind?</div></div></div>
+      <form class="chat-form" id="chatForm"><img class="chat-avatar user-avatar" id="userChatAvatar" alt="Your profile" src=""><input id="userMessage" name="message" autocomplete="off" maxlength="4000" placeholder="Sign in to write a message…" aria-label="Your message" data-i18n-placeholder="chatPlaceholder" required disabled><button type="submit" data-i18n="send" disabled>Send ↗</button></form>
+      <div class="note" data-i18n="chatPrivacyNote">Please don’t share passwords, payment details, or other sensitive information.</div>
+    </div>
+  </section>
+</div>
 </main>
 <footer class="footer"><div class="wrap"><span>© <span id="year"></span> Layan.J</span><span>Stay curious. Stay a little unpredictable. <span class="accent">✦</span></span><button class="admin-link" id="openAdmin" type="button">Admin</button></div></footer>
 <section class="admin-panel" id="adminPanel" aria-label="Layan.J photo administration"><div class="wrap"><div class="admin-card"><h2>Photo studio <span class="accent">✦</span></h2><p class="admin-help">Private management area. Sign in with your administrator account to upload or remove photos. Visitors can view the gallery but cannot manage it.</p><form class="admin-form" id="adminLoginForm"><label for="adminEmail">Administrator email</label><input id="adminEmail" type="email" autocomplete="username" required><label for="adminPassword">Password</label><input id="adminPassword" type="password" autocomplete="current-password" required><button type="submit">Sign in</button></form><div class="admin-status" id="adminStatus" role="status" aria-live="polite"></div><div class="admin-uploads" id="adminUploads"><div class="admin-row"><button class="admin-action" id="logoutAdmin" type="button">Sign out</button></div><hr style="border-color:var(--line)"><h3>Set profile photo</h3><form class="admin-form" id="profileUploadForm"><label for="profileFile">Choose a profile image (JPG, PNG, or WebP; max 10 MB)</label><input id="profileFile" type="file" accept="image/jpeg,image/png,image/webp" required><button type="submit">Save profile photo</button></form><div class="admin-row" style="margin-top:12px"><button class="admin-action" id="deleteProfilePhoto" type="button">Delete profile photo</button></div><hr style="border-color:var(--line);margin:24px 0"><h3>Add to gallery</h3><form class="admin-form" id="galleryUploadForm"><label for="galleryFiles">Choose images (JPG, PNG, WebP; max 10 MB each) or videos (MP4, WebM; max 50 MB each).</label><input id="galleryFiles" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" multiple required><button type="submit">Upload to gallery</button></form><p class="admin-help">After upload, images and videos appear in the public gallery. You can remove gallery media below.</p><div id="adminFileList"></div></div></div></div></section>
@@ -38,67 +59,56 @@ const API_URL = 'https://layan-j-chat.linoyaramillo.workers.dev/';
 const form = document.getElementById('chatForm');
 const input = document.getElementById('userMessage');
 const messages = document.getElementById('messages');
+const chatWindow = document.getElementById('chatWindow');
+const chatLauncher = document.getElementById('chatLauncher');
+const chatLoginGate = document.getElementById('chatLoginGate');
 const history = [];
+const DEFAULT_AVATAR = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="32" fill="#593047"/><circle cx="32" cy="24" r="12" fill="#f3a7c7"/><path d="M10 60c2-14 10-21 22-21s20 7 22 21" fill="#f3a7c7"/></svg>');
 document.getElementById('year').textContent = new Date().getFullYear();
-function addMessage(text, type = '') {
-  const node = document.createElement('div');
-  node.className = ('message ' + type).trim();
-  node.textContent = text;
-  messages.appendChild(node);
-  messages.scrollTop = messages.scrollHeight;
-  return node;
+function setChatOpen(open) { chatWindow.hidden = !open; chatLauncher.setAttribute('aria-expanded', String(open)); if(open){refreshChatAuth(); setTimeout(()=>messages.scrollTop=messages.scrollHeight,20);} }
+function addMessage(text, type = '', who = 'layan') {
+  const row = document.createElement('div'); row.className = 'message-row ' + (who === 'user' ? 'user-row' : 'layan-row');
+  const avatar = document.createElement('img'); avatar.className = 'chat-avatar'; avatar.alt = who === 'user' ? 'Your profile' : 'Layan.J'; avatar.src = who === 'user' ? (document.getElementById('userChatAvatar').src || DEFAULT_AVATAR) : (document.getElementById('layanChatAvatar').src || DEFAULT_AVATAR);
+  const bubble = document.createElement('div'); bubble.className = ('message ' + type).trim(); bubble.textContent = text;
+  row.append(avatar,bubble); messages.appendChild(row); messages.scrollTop = messages.scrollHeight; return row;
 }
+async function refreshChatAuth() {
+  let session = null;
+  if (sb) { try { const result = await sb.auth.getSession(); session = result.data?.session || null; } catch (_) {} }
+  const signedIn = !!session?.access_token;
+  input.disabled = !signedIn;
+  form.querySelector('button[type="submit"]').disabled = !signedIn;
+  input.placeholder = signedIn ? translations[currentLang].chatPlaceholder : (currentLang==='ar'?'سجّلي الدخول لكتابة رسالة…':'Sign in to write a message…');
+  chatLoginGate.hidden = signedIn;
+  document.getElementById('userChatAvatar').src = session?.user?.user_metadata?.avatar_url || session?.user?.user_metadata?.picture || DEFAULT_AVATAR;
+  if (!signedIn) input.blur();
+}
+function openAuthFromChat(){ document.getElementById('authPanel').hidden=false; refreshVisitorAuth(); document.getElementById('authPanel').scrollIntoView({behavior:'smooth'}); }
+chatLauncher.addEventListener('click',()=>setChatOpen(chatWindow.hidden));
+document.getElementById('minimizeChat').addEventListener('click',()=>setChatOpen(false));
+document.getElementById('closeChat').addEventListener('click',()=>setChatOpen(false));
+document.getElementById('chatLoginButton').addEventListener('click',openAuthFromChat);
+document.querySelectorAll('[data-open-chat]').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();setChatOpen(true);}));
 form.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const text = input.value.trim();
-  if (!text) return;
-  if (!sb) { addMessage(currentLang === 'ar' ? 'خدمة تسجيل الدخول غير متاحة حاليًا.' : 'The sign-in service is unavailable right now.', 'error'); return; }
+  event.preventDefault(); const text = input.value.trim(); if (!text) return;
+  if (!sb) { addMessage(currentLang==='ar'?'خدمة تسجيل الدخول غير متاحة حاليًا.':'The sign-in service is unavailable right now.','error'); return; }
   const { data: { session }, error: sessionError } = await sb.auth.getSession();
-  if (sessionError || !session?.access_token) {
-    addMessage(currentLang === 'ar' ? 'يرجى تسجيل الدخول أولًا لاستخدام الدردشة.' : 'Please sign in before using the chat.', 'error');
-    document.getElementById('authPanel').hidden = false;
-    document.getElementById('authPanel').scrollIntoView({behavior:'smooth'});
-    return;
-  }
-  addMessage(text, 'user');
-  input.value = '';
-  input.disabled = true;
-  const button = form.querySelector('button[type="submit"]');
-  button.disabled = true;
-  const loading = addMessage('One moment…');
+  if (sessionError || !session?.access_token) { await refreshChatAuth(); addMessage(currentLang==='ar'?'يرجى تسجيل الدخول أولًا لبدء المحادثة.':'Please sign in before starting a conversation.','error'); return; }
+  addMessage(text,'','user'); input.value=''; input.disabled=true; const button=form.querySelector('button[type="submit"]'); button.disabled=true;
+  const loading=addMessage(currentLang==='ar'?'لحظة واحدة…':'One moment…');
   try {
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.access_token },
-      body: JSON.stringify({ message: text, history: history.slice(-12) })
-    });
-    let data;
-    try { data = await response.json(); }
-    catch { throw new Error('The chat service returned an unreadable response.'); }
+    const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token},body:JSON.stringify({message:text,history:history.slice(-12)})});
+    let data; try{data=await response.json();}catch{throw new Error('The chat service returned an unreadable response.');}
     loading.remove();
-    if (!response.ok) {
-      const detail = data.details || data.error || ('HTTP ' + response.status);
-      addMessage('I couldn’t connect just now. ' + detail, 'error');
-      return;
-    }
-    if (typeof data.reply !== 'string' || !data.reply.trim()) {
-      addMessage('The AI service returned an empty reply. Please try again.', 'error');
-      return;
-    }
-    addMessage(data.reply);
-    history.push({ role: 'user', text }, { role: 'model', text: data.reply });
-    if (history.length > 12) history.splice(0, history.length - 12);
-  } catch (error) {
-    loading.remove();
-    addMessage('Connection problem: ' + (error.message || 'Please try again.'), 'error');
-  } finally {
-    input.disabled = false;
-    button.disabled = false;
-    input.focus();
-  }
+    if(!response.ok){const detail=data.details||data.error||('HTTP '+response.status);addMessage((currentLang==='ar'?'تعذر الاتصال الآن. ':'I couldn’t connect just now. ')+detail,'error');return;}
+    if(typeof data.reply!=='string'||!data.reply.trim()){addMessage(currentLang==='ar'?'أعادت خدمة الذكاء الاصطناعي ردًا فارغًا. حاولي مجددًا.':'The AI service returned an empty reply. Please try again.','error');return;}
+    addMessage(data.reply,'','layan'); history.push({role:'user',text},{role:'model',text:data.reply}); if(history.length>12)history.splice(0,history.length-12);
+  }catch(error){loading.remove();addMessage((currentLang==='ar'?'مشكلة في الاتصال: ':'Connection problem: ')+(error.message||'Please try again.'),'error');}
+  finally{await refreshChatAuth();if(!input.disabled)input.focus();}
 });
-</script>
 
+
+</script>
 <script>
 // IMPORTANT: Replace only these two values with your Supabase project's URL and publishable/anon key.
 const SUPABASE_URL = 'https://ycmgbriehtoudosirycs.supabase.co';
@@ -112,8 +122,8 @@ const supabaseReady = window.supabase && SUPABASE_URL.startsWith('https://') && 
 const sb = supabaseReady ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 let currentLang = 'en';
 const translations = {
-  en: {navAbout:'About',navGallery:'Gallery',navChat:'Chat',signIn:'Sign in',accountTitle:'Sign in to Layan.J',accountHelp:'Use your email and password to sign in, or create an account.',createAccount:'Create account',signOut:'Sign out',heroEyebrow:'A little mystery. A lot of personality.',heroLead:'Curious mind, music in the background, a passport that’s seen a few things, and absolutely no talent for pretending to be boring.',heroChat:'Come say hello ↗',heroAbout:'Get to know me',aboutEyebrow:'A few things about me',aboutTitle:'Never just one thing.',aboutLead:'I love a good conversation, a clever joke, a great soundtrack, and stories that make reality feel a little less ordinary.',galleryEyebrow:'Little snapshots',galleryTitle:'The mood board.',chatEyebrow:'Your turn',chatTitle:'Say hello.',chatSubtitle:'I’m listening.',chatLead:'Drop me a message. I’m here for playful banter, curious questions, and conversations that take an unexpected turn.',chatPlaceholder:'Write your message…',send:'Send ↗'},
-  ar: {navAbout:'من أنا',navGallery:'معرض الصور',navChat:'الدردشة',signIn:'تسجيل الدخول',accountTitle:'تسجيل الدخول إلى Layan.J',accountHelp:'استخدمي بريدك الإلكتروني وكلمة المرور لتسجيل الدخول، أو أنشئي حسابًا جديدًا.',createAccount:'إنشاء حساب',signOut:'تسجيل الخروج',heroEyebrow:'قليل من الغموض، والكثير من الشخصية.',heroLead:'عقل فضولي، وموسيقى في الخلفية، وجواز سفر شهد بعض المغامرات، وموهبة معدومة في التظاهر بالملل.',heroChat:'تعالي وألقي التحية ↗',heroAbout:'تعرّفي إليّ',aboutEyebrow:'بعض الأشياء عني',aboutTitle:'لستُ شيئًا واحدًا فقط.',aboutLead:'أحب الحوارات الجميلة والنكات الذكية والموسيقى الرائعة والقصص التي تجعل الواقع أقل اعتيادية.',galleryEyebrow:'لمحات صغيرة',galleryTitle:'لوحة من اللحظات.',chatEyebrow:'دورك الآن',chatTitle:'قولي مرحبًا.',chatSubtitle:'أنا أستمع إليكِ.',chatLead:'أرسلي لي رسالة؛ أحب المزاح والأسئلة الفضولية والحوارات التي تأخذ منعطفًا غير متوقع.',chatPlaceholder:'اكتبي رسالتكِ…',send:'إرسال ↗'}
+  en: {navAbout:'About',navGallery:'Gallery',navChat:'Chat',signIn:'Sign in',accountTitle:'Sign in to Layan.J',accountHelp:'Use your email and password to sign in, or create an account.',createAccount:'Create account',signOut:'Sign out',resetPassword:'Forgot password?',heroEyebrow:'A little mystery. A lot of personality.',heroLead:'Curious mind, music in the background, a passport that’s seen a few things, and absolutely no talent for pretending to be boring.',heroChat:'Come say hello ↗',heroAbout:'Get to know me',aboutEyebrow:'A few things about me',aboutTitle:'Never just one thing.',aboutLead:'I love a good conversation, a clever joke, a great soundtrack, and stories that make reality feel a little less ordinary.',galleryEyebrow:'Little snapshots',galleryTitle:'The mood board.',chatEyebrow:'Your turn',chatTitle:'Say hello.',chatSubtitle:'I’m listening.',chatLead:'Drop me a message. I’m here for playful banter, curious questions, and conversations that take an unexpected turn.',chatPlaceholder:'Write your message…',chatOnline:'AI chat · replies may take a moment',chatLoginPrompt:'Sign in to start a conversation.',chatPrivacyNote:'Please don’t share passwords, payment details, or other sensitive information.',send:'Send ↗'},
+  ar: {navAbout:'من أنا',navGallery:'معرض الصور',navChat:'الدردشة',signIn:'تسجيل الدخول',accountTitle:'تسجيل الدخول إلى Layan.J',accountHelp:'استخدمي بريدك الإلكتروني وكلمة المرور لتسجيل الدخول، أو أنشئي حسابًا جديدًا.',createAccount:'إنشاء حساب',signOut:'تسجيل الخروج',resetPassword:'نسيتِ كلمة المرور؟',heroEyebrow:'قليل من الغموض، والكثير من الشخصية.',heroLead:'عقل فضولي، وموسيقى في الخلفية، وجواز سفر شهد بعض المغامرات، وموهبة معدومة في التظاهر بالملل.',heroChat:'تعالي وألقي التحية ↗',heroAbout:'تعرّفي إليّ',aboutEyebrow:'بعض الأشياء عني',aboutTitle:'لستُ شيئًا واحدًا فقط.',aboutLead:'أحب الحوارات الجميلة والنكات الذكية والموسيقى الرائعة والقصص التي تجعل الواقع أقل اعتيادية.',galleryEyebrow:'لمحات صغيرة',galleryTitle:'لوحة من اللحظات.',chatEyebrow:'دورك الآن',chatTitle:'قولي مرحبًا.',chatSubtitle:'أنا أستمع إليكِ.',chatLead:'أرسلي لي رسالة؛ أحب المزاح والأسئلة الفضولية والحوارات التي تأخذ منعطفًا غير متوقع.',chatPlaceholder:'اكتبي رسالتكِ…',chatOnline:'دردشة بالذكاء الاصطناعي · قد يتأخر الرد قليلًا',chatLoginPrompt:'سجّلي الدخول لبدء المحادثة.',chatPrivacyNote:'لا تشاركي كلمات المرور أو بيانات الدفع أو المعلومات الحساسة.',send:'إرسال ↗'}
 };
 function setLanguage(lang) {
   currentLang = lang;
@@ -135,11 +145,35 @@ async function refreshVisitorAuth() {
   document.querySelector('#authPanel [data-i18n="accountTitle"]').textContent = session ? (currentLang==='ar'?'أنتِ مسجلة الدخول':'You are signed in') : translations[currentLang].accountTitle;
   document.querySelector('#authPanel [data-i18n="accountHelp"]').textContent = session ? (session.user.email || '') : translations[currentLang].accountHelp;
   document.getElementById('openAuth').textContent = session ? (currentLang==='ar'?'حسابي':'My account') : translations[currentLang].signIn;
+  document.getElementById('visitorResetPassword').hidden = !!session;
+  if (typeof refreshChatAuth === 'function') refreshChatAuth();
 }
 document.getElementById('languageToggle').addEventListener('click',()=>setLanguage(currentLang==='en'?'ar':'en'));
 document.getElementById('openAuth').addEventListener('click',()=>{const panel=document.getElementById('authPanel');panel.hidden=!panel.hidden;if(!panel.hidden){refreshVisitorAuth();panel.scrollIntoView({behavior:'smooth'});}});
-document.getElementById('visitorAuthForm').addEventListener('submit',async e=>{e.preventDefault();if(!sb){authStatus(currentLang==='ar'?'خدمة تسجيل الدخول غير جاهزة.':'Sign-in service is not configured.','error');return;}const email=document.getElementById('visitorEmail').value.trim();const password=document.getElementById('visitorPassword').value;const btn=document.getElementById('visitorSignIn');btn.disabled=true;authStatus(currentLang==='ar'?'جارٍ تسجيل الدخول…':'Signing in…');try{const {error}=await sb.auth.signInWithPassword({email,password});if(error)throw error;authStatus(currentLang==='ar'?'تم تسجيل الدخول بنجاح.':'You are signed in successfully.','success');await refreshVisitorAuth();}catch(err){authStatus(err.message||'Sign-in failed.','error');}finally{btn.disabled=false;}});
-document.getElementById('visitorSignUp').addEventListener('click',async()=>{if(!sb)return;const email=document.getElementById('visitorEmail').value.trim();const password=document.getElementById('visitorPassword').value;if(!email||password.length<6){authStatus(currentLang==='ar'?'أدخلي بريدًا صحيحًا وكلمة مرور من 6 أحرف على الأقل.':'Enter a valid email and a password of at least 6 characters.','error');return;}const btn=document.getElementById('visitorSignUp');btn.disabled=true;try{const {data,error}=await sb.auth.signUp({email,password});if(error)throw error;authStatus(data.session?(currentLang==='ar'?'تم إنشاء الحساب وتسجيل الدخول.':'Account created and signed in.'):(currentLang==='ar'?'تحققي من بريدك الإلكتروني لتأكيد الحساب، ثم سجّلي الدخول.':'Check your email to confirm the account, then sign in.'),'success');await refreshVisitorAuth();}catch(err){authStatus(err.message||'Sign-up failed.','error');}finally{btn.disabled=false;}});
+document.getElementById('visitorAuthForm').addEventListener('submit',async e=>{e.preventDefault();if(!sb){authStatus(currentLang==='ar'?'خدمة تسجيل الدخول غير جاهزة.':'Sign-in service is not configured.','error');return;}const email=document.getElementById('visitorEmail').value.trim();const password=document.getElementById('visitorPassword').value;const btn=document.getElementById('visitorSignIn');btn.disabled=true;authStatus(currentLang==='ar'?'جارٍ تسجيل الدخول…':'Signing in…');try{const {error}=await sb.auth.signInWithPassword({email,password});if(error)throw error;authStatus(currentLang==='ar'?'تم تسجيل الدخول بنجاح.':'You are signed in successfully.','success');await refreshVisitorAuth();}catch(err){authStatus((currentLang==='ar'?'تعذر تسجيل الدخول: ':'Sign-in failed: ')+(err.message||'Please check your email and password.'),'error');}finally{btn.disabled=false;}});
+document.getElementById('visitorSignUp').addEventListener('click',async()=>{
+  if(!sb){authStatus(currentLang==='ar'?'خدمة تسجيل الدخول غير جاهزة.':'Sign-in service is not configured.','error');return;}
+  const email=document.getElementById('visitorEmail').value.trim();
+  const password=document.getElementById('visitorPassword').value;
+  if(!email||!document.getElementById('visitorEmail').checkValidity()||password.length<6){authStatus(currentLang==='ar'?'أدخلي بريدًا إلكترونيًا صحيحًا وكلمة مرور من 6 أحرف على الأقل.':'Enter a valid email and a password of at least 6 characters.','error');return;}
+  const btn=document.getElementById('visitorSignUp');btn.disabled=true;authStatus(currentLang==='ar'?'جارٍ إنشاء الحساب…':'Creating account…');
+  try{
+    const {data,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:window.location.href.split('#')[0]}});
+    if(error)throw error;
+    authStatus(data.session?(currentLang==='ar'?'تم إنشاء الحساب وتسجيل الدخول.':'Account created and signed in.'):(currentLang==='ar'?'تحققي من بريدك الإلكتروني واضغطي رابط التأكيد، ثم عودي إلى الموقع لتسجيل الدخول.':'Check your inbox and follow the confirmation link, then return here to sign in.'),'success');
+    await refreshVisitorAuth();
+  }catch(err){authStatus((currentLang==='ar'?'تعذر إنشاء الحساب: ':'Could not create account: ')+(err.message||'Please try again.'),'error');}
+  finally{btn.disabled=false;}
+});
+document.getElementById('visitorResetPassword').addEventListener('click',async()=>{
+  if(!sb){authStatus(currentLang==='ar'?'خدمة تسجيل الدخول غير جاهزة.':'Sign-in service is not configured.','error');return;}
+  const email=document.getElementById('visitorEmail').value.trim();
+  if(!email||!document.getElementById('visitorEmail').checkValidity()){authStatus(currentLang==='ar'?'أدخلي بريدك الإلكتروني الصحيح أولًا.':'Enter your valid email address first.','error');document.getElementById('visitorEmail').focus();return;}
+  const btn=document.getElementById('visitorResetPassword');btn.disabled=true;authStatus(currentLang==='ar'?'جارٍ إرسال رابط إعادة تعيين كلمة المرور…':'Sending password reset link…');
+  try{const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.href.split('#')[0]});if(error)throw error;authStatus(currentLang==='ar'?'إذا كان بالإمكان إرسال رسالة لهذا العنوان، فستصلكِ تعليمات إعادة تعيين كلمة المرور. تحققي من البريد الوارد والرسائل غير المرغوب فيها.':'If a reset email can be sent to this address, you will receive instructions. Check your inbox and spam folder.','success');}
+  catch(err){authStatus((currentLang==='ar'?'تعذر طلب إعادة التعيين: ':'Could not request password reset: ')+(err.message||'Please try again.'),'error');}
+  finally{btn.disabled=false;}
+});
 document.getElementById('visitorSignOut').addEventListener('click',async()=>{if(sb){const {error}=await sb.auth.signOut();authStatus(error?error.message:(currentLang==='ar'?'تم تسجيل الخروج.':'You have signed out.'),error?'error':'success');await refreshVisitorAuth();}});
 
 const galleryGrid = document.getElementById('galleryGrid');
@@ -169,8 +203,10 @@ function requireConfig() { if (!sb) throw new Error('Supabase is not connected y
 async function loadProfilePhoto() {
   if (!sb) return;
   const url = publicPhotoUrl('profile/main');
-  try { const response = await fetch(url, { method:'HEAD', cache:'no-store' }); if (response.ok) { heroPortraitImage.src = url + '?v=' + Date.now(); heroPortrait.classList.add('has-photo'); } } catch (_) {}
+  try { const response = await fetch(url, { method:'HEAD', cache:'no-store' }); if (response.ok) { heroPortraitImage.src = url + '?v=' + Date.now(); heroPortrait.classList.add('has-photo'); syncLayanChatAvatars(); } } catch (_) {}
 }
+function syncLayanChatAvatars(){const url=publicPhotoUrl('profile/main')+'?v='+Date.now();document.querySelectorAll('.layan-avatar').forEach(img=>{img.src=url;img.onerror=()=>{img.src=DEFAULT_AVATAR;};});}
+sb?.auth.onAuthStateChange(()=>{setTimeout(()=>{refreshVisitorAuth();if(typeof refreshChatAuth==='function')refreshChatAuth();},0);});
 async function getLikeCount(path) {
   const { count, error } = await sb.from('gallery_likes').select('id', { count: 'exact', head: true }).eq('photo_path', path);
   if (error) return null;
@@ -191,7 +227,7 @@ async function loadGallery() {
   for (const photo of photos) {
     const path = 'gallery/' + photo.name;
     const card = document.createElement('article'); card.className = 'gallery-card';
-    const open = document.createElement('button'); open.type='button'; open.className='photo-open'; open.setAttribute('aria-label','Open gallery media');
+    const open = document.createElement('button'); open.type='button'; open.className='photo-open'; open.setAttribute('aria-label','Open gallery media; videos open with playback controls');
     const mediaUrl = publicPhotoUrl(path);
     const isVideo = /\.(mp4|webm)$/i.test(photo.name);
     let preview;
@@ -227,7 +263,21 @@ async function openPhoto(path,title,url,focusComment=false){
   activePhotoPath=path;photoModalTitle.textContent=title||'Layan.J media';
   photoModalMedia.replaceChildren();
   if (/\.(mp4|webm)(?:$|\?)/i.test(path)) {
-    const video=document.createElement('video'); video.className='photo-modal-image'; video.src=url; video.controls=true; video.autoplay=true; video.playsInline=true; video.preload='metadata'; video.setAttribute('aria-label','Layan.J gallery video'); photoModalMedia.append(video);
+    const video=document.createElement('video');
+    video.className='photo-modal-image gallery-modal-video';
+    video.controls=true;
+    video.autoplay=false;
+    video.playsInline=true;
+    video.preload='auto';
+    video.setAttribute('aria-label','Layan.J gallery video');
+    const ext=(path.split('?')[0].split('.').pop()||'').toLowerCase();
+    video.type = ext === 'webm' ? 'video/webm' : 'video/mp4';
+    video.src=url;
+    video.addEventListener('error',()=>{
+      interactionStatus.textContent='This video could not be played by the browser. Check that it is an MP4 encoded with H.264 video and AAC audio, or a supported WebM file.';
+    },{once:true});
+    video.addEventListener('loadedmetadata',()=>{interactionStatus.textContent='Video ready. Press Play to watch.';},{once:true});
+    photoModalMedia.append(video);
   } else {
     const image=document.createElement('img'); image.className='photo-modal-image'; image.alt='Enlarged Layan.J photo'; image.src=url; photoModalMedia.append(image);
   }
@@ -353,5 +403,6 @@ refreshVisitorAuth();
 (async()=>{ if(!sb){ galleryGrid.innerHTML='<div class="empty-gallery">Photo gallery setup is not complete yet.</div>'; return; } await Promise.all([loadProfilePhoto(),loadGallery()]); await checkAdminSession(); })();
 </script>
 
+<script>refreshVisitorAuth();refreshChatAuth();syncLayanChatAvatars();</script>
 </body>
 </html>
