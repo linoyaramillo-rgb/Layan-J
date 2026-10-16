@@ -245,7 +245,41 @@ async function renderAdminFiles() {
 document.getElementById('openAdmin').addEventListener('click', async () => { adminPanel.classList.toggle('open'); if(adminPanel.classList.contains('open')) { adminPanel.scrollIntoView({behavior:'smooth'}); if(!sb) setAdminStatus('Setup needed: enter your Supabase Project URL and publishable/anon key in the configuration lines of index.html.','error'); else await checkAdminSession(); } });
 adminLoginForm.addEventListener('submit', async (event) => { event.preventDefault(); try { requireConfig(); setAdminStatus('Signing in…'); const email=document.getElementById('adminEmail').value.trim(); const password=document.getElementById('adminPassword').value; const {data,error}=await sb.auth.signInWithPassword({email,password}); if(error) throw error; if(data.user.id!==ADMIN_UID){await sb.auth.signOut();throw new Error('This account is not authorized to manage photos.');} setAdminStatus('Signed in securely as administrator.','success'); await checkAdminSession(); } catch(error) { setAdminStatus(error.message || 'Sign-in failed.','error'); } });
 document.getElementById('logoutAdmin').addEventListener('click', async()=>{ if(sb) await sb.auth.signOut(); adminUploads.classList.remove('visible'); adminLoginForm.style.display='grid'; setAdminStatus('You have signed out.'); });
-document.getElementById('profileUploadForm').addEventListener('submit', async(event)=>{ event.preventDefault(); try { requireConfig(); const {data:{user}}=await sb.auth.getUser(); if(!user || user.id!==ADMIN_UID) throw new Error('Please sign in with the administrator account again.'); const file=document.getElementById('profileFile').files[0]; if(!file) throw new Error('Choose a profile image first.'); validateImage(file); setAdminStatus('Uploading profile photo…'); const {error}=await sb.storage.from(PHOTO_BUCKET).upload('profile/main',file,{upsert:true,contentType:file.type,cacheControl:'60'}); if(error) throw error; heroPortraitImage.src=publicPhotoUrl('profile/main')+'?v='+Date.now(); heroPortrait.classList.add('has-photo'); document.getElementById('profileFile').value=''; setAdminStatus('Profile photo updated successfully.','success'); } catch(error) { setAdminStatus(error.message || 'Profile upload failed.','error'); } });
+document.getElementById('profileUploadForm').addEventListener('submit',document.getElementById('deleteProfilePhoto').addEventListener('click', async () => {
+  if (!confirm('Are you sure you want to delete the profile photo?')) return;
+
+  const button = document.getElementById('deleteProfilePhoto');
+  button.disabled = true;
+
+  try {
+    requireConfig();
+
+    const { data: { user }, error: authError } = await sb.auth.getUser();
+    if (authError) throw authError;
+
+    if (!user || user.id !== ADMIN_UID) {
+      throw new Error('Please sign in with the administrator account again.');
+    }
+
+    setAdminStatus('Deleting profile photo…');
+
+    const { error } = await sb.storage
+      .from(PHOTO_BUCKET)
+      .remove(['profile/main']);
+
+    if (error) throw error;
+
+    heroPortraitImage.removeAttribute('src');
+    heroPortrait.classList.remove('has-photo');
+
+    setAdminStatus('Profile photo deleted successfully.', 'success');
+
+  } catch (error) {
+    setAdminStatus(error.message || 'Profile photo deletion failed.', 'error');
+  } finally {
+    button.disabled = false;
+  }
+}); async(event)=>{ event.preventDefault(); try { requireConfig(); const {data:{user}}=await sb.auth.getUser(); if(!user || user.id!==ADMIN_UID) throw new Error('Please sign in with the administrator account again.'); const file=document.getElementById('profileFile').files[0]; if(!file) throw new Error('Choose a profile image first.'); validateImage(file); setAdminStatus('Uploading profile photo…'); const {error}=await sb.storage.from(PHOTO_BUCKET).upload('profile/main',file,{upsert:true,contentType:file.type,cacheControl:'60'}); if(error) throw error; heroPortraitImage.src=publicPhotoUrl('profile/main')+'?v='+Date.now(); heroPortrait.classList.add('has-photo'); document.getElementById('profileFile').value=''; setAdminStatus('Profile photo updated successfully.','success'); } catch(error) { setAdminStatus(error.message || 'Profile upload failed.','error'); } });
 document.getElementById('galleryUploadForm').addEventListener('submit', async(event)=>{ event.preventDefault(); try { requireConfig(); const {data:{user}}=await sb.auth.getUser(); if(!user || user.id!==ADMIN_UID) throw new Error('Please sign in with the administrator account again.'); const files=Array.from(document.getElementById('galleryFiles').files || []); if(!files.length) throw new Error('Choose at least one image.'); for(const file of files) validateImage(file); setAdminStatus('Uploading '+files.length+' image(s)…'); for(const file of files){ const path='gallery/'+Date.now()+'-'+crypto.randomUUID()+'-'+safeFileName(file.name); const {error}=await sb.storage.from(PHOTO_BUCKET).upload(path,file,{upsert:false,contentType:file.type,cacheControl:'3600'}); if(error) throw error; } document.getElementById('galleryFiles').value=''; setAdminStatus('Gallery upload complete.','success'); await loadGallery(); await renderAdminFiles(); } catch(error) { setAdminStatus(error.message || 'Gallery upload failed.','error'); } });
 sb?.auth.onAuthStateChange(()=>{setTimeout(()=>refreshVisitorAuth(),0);});
 setLanguage('en');
